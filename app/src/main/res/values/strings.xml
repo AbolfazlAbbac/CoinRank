@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CoinMarketJava</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home">Home</string>
+    <string name="market">Market</string>
+    <string name="watchlist">WatchList</string>
+    <string name="profile">Profile</string>
+</resources>
