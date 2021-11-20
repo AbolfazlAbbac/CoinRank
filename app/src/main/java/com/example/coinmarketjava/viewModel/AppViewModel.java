@@ -8,12 +8,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.coinmarketjava.AppRepository;
 import com.example.coinmarketjava.R;
+import com.example.coinmarketjava.model.repository.AllCoinMarket;
 
 import java.util.ArrayList;
+import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.core.Observable;
 
 @HiltViewModel
 public class AppViewModel extends AndroidViewModel {
@@ -27,6 +30,10 @@ public class AppViewModel extends AndroidViewModel {
     public AppViewModel(@NonNull Application application) {
         super(application);
         getBannerData();
+    }
+
+    public Future<Observable<AllCoinMarket>> marketFutureCall() {
+        return appRepository.makeListFutureCall();
     }
 
 

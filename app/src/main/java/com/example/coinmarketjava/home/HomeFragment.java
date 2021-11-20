@@ -37,10 +37,6 @@ public class HomeFragment extends Fragment {
     MainActivity mainActivity;
     AppViewModel viewModel;
 
-    @Inject
-    @Named("family")
-    String name;
-
     @Override
     public void onAttach(@NonNull Context context) {
         mainActivity = (MainActivity) context;

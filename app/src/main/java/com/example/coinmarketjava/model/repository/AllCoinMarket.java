@@ -5,57 +5,89 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class AllCoinMarket {
-    public static class data {
-        @SerializedName("totalCount")
-        private String totalCount;
 
-        public String getTotalCount() {
-            return totalCount;
-        }
+    @SerializedName("data")
+    private RootData data;
 
-        public List<DataItem> getCryptoList() {
-            return cryptoList;
-        }
+    @SerializedName("status")
+    private ListStatus listStatus;
 
-        @SerializedName("cryptoCurrencyList")
-        private List<DataItem> cryptoList;
+    public RootData getRootData() {
+        return data;
     }
 
-    public static class status {
+    public ListStatus getStatus() {
+        return listStatus;
+    }
+
+
+    public static class ListStatus {
+
+        @SerializedName("error_message")
+        private String errorMessage;
+
+        @SerializedName("elapsed")
+        private int elapsed;
+
+        @SerializedName("total_count")
+        private int totalCount;
+
+        @SerializedName("credit_count")
+        private int creditCount;
+
+        @SerializedName("error_code")
+        private int errorCode;
+
         @SerializedName("timestamp")
-        private String timeStamp;
+        private String timestamp;
 
-        public String getTimeStamp() {
-            return timeStamp;
-        }
-
-        public String getErrorCode() {
-            return errorCode;
-        }
+        @SerializedName("notice")
+        private Object notice;
 
         public String getErrorMessage() {
             return errorMessage;
         }
 
-        public String getElapsed() {
+        public int getElapsed() {
             return elapsed;
+        }
+
+        public int getTotalCount() {
+            return totalCount;
         }
 
         public int getCreditCount() {
             return creditCount;
         }
 
-        @SerializedName("error_code")
-        private String errorCode;
+        public int getErrorCode() {
+            return errorCode;
+        }
 
-        @SerializedName("error_message")
-        private String errorMessage;
+        public String getTimestamp() {
+            return timestamp;
+        }
 
-        @SerializedName("elapsed")
-        private String elapsed;
-
-        @SerializedName("credit_count")
-        private int creditCount;
+        public Object getNotice() {
+            return notice;
+        }
     }
 
+
+    public static class RootData {
+
+        @SerializedName("cryptoCurrencyList")
+        private List<DataItem> cryptoCurrencyList;
+
+        @SerializedName("totalCount")
+        private int totalCount;
+
+        public List<DataItem> getCryptoCurrencyList() {
+            return cryptoCurrencyList;
+        }
+
+        public int getTotalCount() {
+            return totalCount;
+        }
+    }
 }

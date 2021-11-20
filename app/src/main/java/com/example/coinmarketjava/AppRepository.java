@@ -20,12 +20,12 @@ public class AppRepository {
         this.apiService = apiService;
     }
 
-    public Future<Observable<AllCoinMarket>> marketListFutureCall() {
+    public Future<Observable<AllCoinMarket>> makeListFutureCall() {
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        final Callable<Observable<AllCoinMarket>> myNetworkCallAble = () -> apiService.makeLatestCryptoList();
+        final Callable<Observable<AllCoinMarket>> FutureCallable = () -> apiService.makeLatestCryptoList();
 
-        final Future<Observable<AllCoinMarket>> futureObservableFuture = new Future<Observable<AllCoinMarket>>() {
+        final Future<Observable<AllCoinMarket>> futureObservable = new Future<Observable<AllCoinMarket>>() {
             @Override
             public boolean cancel(boolean b) {
                 if (b) {
@@ -46,14 +46,15 @@ public class AppRepository {
 
             @Override
             public Observable<AllCoinMarket> get() throws ExecutionException, InterruptedException {
-                return executorService.submit(myNetworkCallAble).get();
+                return executorService.submit(FutureCallable).get();
             }
 
             @Override
             public Observable<AllCoinMarket> get(long timeout, TimeUnit timeUnit) throws ExecutionException, InterruptedException, TimeoutException {
-                return executorService.submit(myNetworkCallAble).get(timeout, timeUnit);
+                return executorService.submit(FutureCallable).get(timeout, timeUnit);
             }
+
         };
-        return futureObservableFuture;
+        return futureObservable;
     }
 }

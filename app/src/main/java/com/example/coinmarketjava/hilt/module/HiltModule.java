@@ -1,25 +1,30 @@
 package com.example.coinmarketjava.hilt.module;
 
-import javax.inject.Named;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ActivityComponent;
+import dagger.hilt.android.qualifiers.ActivityContext;
 
 @Module
 @InstallIn(ActivityComponent.class)
 public class HiltModule {
 
     @Provides
-    @Named("name")
-    String abolfazl() {
-        return "Joooon abolfazl";
+    ConnectivityManager connectivityManager(@ActivityContext Context context) {
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     @Provides
-    @Named("family")
-    String abbasi() {
-        return "Joooon abbasi";
+    NetworkRequest networkRequest() {
+        return new NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build();
     }
+
+
 }
