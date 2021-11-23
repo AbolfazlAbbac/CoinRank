@@ -68,14 +68,10 @@ public class HomeFragment extends Fragment {
         viewModel.getAllMarketFromDb()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Consumer<RoomAllMarket>() {
-                            @Override
-                            public void accept(RoomAllMarket roomAllMarket) throws Throwable {
-                                AllCoinMarket allCoinMarket = roomAllMarket.getAllCoinMarket();
-                                Log.e("HomeFragment", "..........."+allCoinMarket.getRootData().getCryptoCurrencyList().get(0).getName());
-                                Log.e("HomeFragment", "..........."+allCoinMarket.getRootData().getCryptoCurrencyList().get(1).getName());
-                            }
+                .subscribe(roomAllMarket -> {
+                            AllCoinMarket allCoinMarket = roomAllMarket.getAllCoinMarket();
+                            Log.e("HomeFragment", "..........."+allCoinMarket.getRootData().getCryptoCurrencyList().get(0).getName());
+                            Log.e("HomeFragment", "..........."+allCoinMarket.getRootData().getCryptoCurrencyList().get(1).getName());
                         }
                 );
     }
