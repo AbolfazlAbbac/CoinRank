@@ -1,5 +1,9 @@
 package com.example.coinmarketjava;
 
+import android.util.Log;
+
+import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
+import com.example.coinmarketjava.Roomdb.RoomDao;
 import com.example.coinmarketjava.http.ApiService;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 
@@ -11,13 +15,23 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AppRepository {
     ApiService apiService;
+    RoomDao roomDao;
 
-    public AppRepository(ApiService apiService) {
+    public AppRepository(ApiService apiService, RoomDao roomDao) {
         this.apiService = apiService;
+        this.roomDao = roomDao;
     }
 
     public Future<Observable<AllCoinMarket>> makeListFutureCall() {
@@ -57,4 +71,34 @@ public class AppRepository {
         };
         return futureObservable;
     }
+
+    public void insertAllMarket(AllCoinMarket allCoinMarket) {
+        Completable.fromAction(() -> roomDao.insertToDb(new RoomAllMarket(allCoinMarket)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.e("AppRepository", "Subscribe -> ok: ");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i("Add to db", "onComplete: ");
+                        Log.e("AppRepository", "onComplete -> ok: ");
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e("exist error add to db", "onError: ");
+                    }
+                });
+    }
+
+    public Flowable<RoomAllMarket> getAllMarket() {
+        return roomDao.getAllMarketFromDb();
+    }
+
+
 }

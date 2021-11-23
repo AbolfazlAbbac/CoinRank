@@ -5,6 +5,7 @@ import android.net.Network;
 import android.net.NetworkRequest;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.PopupMenu;
 
@@ -102,14 +103,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.add(d);
+                        Log.e("MainActivity", "Subscribe-> ok: ");
+
                     }
 
                     @Override
                     public void onNext(@NonNull AllCoinMarket allCoinMarket) {
+                        appViewModel.insertToRoomDb(allCoinMarket);
+                        Log.e("MainActivity", "getCrypto - onNext -> ok: ");
+
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        Log.e("Error,MainActivity,room", "onError: ");
                     }
 
                     @Override

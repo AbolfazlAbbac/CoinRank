@@ -2,6 +2,7 @@ package com.example.coinmarketjava.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
+import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
 import com.example.coinmarketjava.databinding.FragmentHomeBinding;
+import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.viewModel.AppViewModel;
 
 import java.util.ArrayList;
@@ -30,6 +33,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
 public class HomeFragment extends Fragment {
@@ -52,8 +59,25 @@ public class HomeFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
 
         setupViewPager2();
+        getAllMarketFromDb();
 
         return fragmentHomeBinding.getRoot();
+    }
+
+    private void getAllMarketFromDb() {
+        viewModel.getAllMarketFromDb()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Consumer<RoomAllMarket>() {
+                            @Override
+                            public void accept(RoomAllMarket roomAllMarket) throws Throwable {
+                                AllCoinMarket allCoinMarket = roomAllMarket.getAllCoinMarket();
+                                Log.e("HomeFragment", "..........."+allCoinMarket.getRootData().getCryptoCurrencyList().get(0).getName());
+                                Log.e("HomeFragment", "..........."+allCoinMarket.getRootData().getCryptoCurrencyList().get(1).getName());
+                            }
+                        }
+                );
     }
 
     private void setupViewPager2() {

@@ -1,6 +1,7 @@
 package com.example.coinmarketjava.hilt.module;
 
 import com.example.coinmarketjava.AppRepository;
+import com.example.coinmarketjava.Roomdb.RoomDao;
 import com.example.coinmarketjava.http.ApiService;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class HiltNetworkModule {
 
     @Provides
     @Singleton
-    AppRepository appRepository(ApiService apiService) {
-        return new AppRepository(apiService);
+    AppRepository appRepository(ApiService apiService, RoomDao roomDao) {
+        return new AppRepository(apiService, roomDao);
     }
 }

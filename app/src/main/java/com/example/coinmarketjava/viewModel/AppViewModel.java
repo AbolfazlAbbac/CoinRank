@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.coinmarketjava.AppRepository;
 import com.example.coinmarketjava.R;
+import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.concurrent.Future;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 
 @HiltViewModel
@@ -34,6 +36,14 @@ public class AppViewModel extends AndroidViewModel {
 
     public Future<Observable<AllCoinMarket>> marketFutureCall() {
         return appRepository.makeListFutureCall();
+    }
+
+    public void insertToRoomDb(AllCoinMarket allCoinMarket) {
+        appRepository.insertAllMarket(allCoinMarket);
+    }
+
+    public Flowable<RoomAllMarket> getAllMarketFromDb() {
+        return appRepository.getAllMarket();
     }
 
 
