@@ -19,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.coinmarketjava.databinding.ActivityMainBinding;
+import com.example.coinmarketjava.home.Top10Adapter;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.viewModel.AppViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     AppViewModel appViewModel;
 
     CompositeDisposable compositeDisposable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.add(d);
-                        Log.e("MainActivity", "Subscribe-> ok: ");
+//                        Log.e("MainActivity", "Subscribe-> ok: ");
 
                     }
 
                     @Override
                     public void onNext(@NonNull AllCoinMarket allCoinMarket) {
                         appViewModel.insertToRoomDb(allCoinMarket);
-                        Log.e("MainActivity", "getCrypto - onNext -> ok: ");
+//                        Log.e("MainActivity", "getCrypto - onNext -> ok: ");
 
                     }
 
