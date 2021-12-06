@@ -17,6 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.Utils;
 import com.example.coinmarketjava.MainActivity;
@@ -26,6 +27,8 @@ import com.example.coinmarketjava.databinding.FragmentHomeBinding;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
 import com.example.coinmarketjava.viewModel.AppViewModel;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,8 +71,40 @@ public class HomeFragment extends Fragment {
         compositeDisposable = new CompositeDisposable();
         setupViewPager2();
         getAllMarketFromDb();
+        setupViewPager2TopGainLose();
 
         return fragmentHomeBinding.getRoot();
+    }
+
+    private void setupViewPager2TopGainLose() {
+        TopGainerLoserAdapter topGainerLoserAdapter = new TopGainerLoserAdapter(this);
+        fragmentHomeBinding.viewPagerTopGainLose.setAdapter(topGainerLoserAdapter);
+
+        fragmentHomeBinding.viewPagerTopGainLose.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+        });
+
+        new TabLayoutMediator(fragmentHomeBinding.tabLayoutFragmentHome, fragmentHomeBinding.viewPagerTopGainLose, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                if (position == 0) {
+                    tab.setText(getResources().getString(R.string.topgainer));
+                    tab.setIcon(R.drawable.dropup_arrows);
+                } else {
+                    tab.setText(getResources().getString(R.string.toploser));
+                    tab.setIcon(R.drawable.drop_arrows);
+                }
+            }
+        }).attach();
+
     }
 
     private void getAllMarketFromDb() {

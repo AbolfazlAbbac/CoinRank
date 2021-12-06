@@ -16,6 +16,6 @@ public interface RoomDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertToDb(RoomAllMarket roomAllMarket);
 
-    @Query("SELECT * FROM ALLMARKET")
+    @Query("SELECT * FROM AllMarket")
     Flowable<RoomAllMarket> getAllMarketFromDb();
 }

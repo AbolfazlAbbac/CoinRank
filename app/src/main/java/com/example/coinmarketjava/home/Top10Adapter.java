@@ -96,10 +96,9 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.Top10ViewHol
         }
     }
 
-
-    public void updateItem(ArrayList<DataItem> newItems) {
-        dataItems.clear();
-        dataItems.addAll(newItems);
+    public void updateItem(ArrayList<DataItem> newData) {
+        dataItems = newData;
         notifyDataSetChanged();
+
     }
 }
