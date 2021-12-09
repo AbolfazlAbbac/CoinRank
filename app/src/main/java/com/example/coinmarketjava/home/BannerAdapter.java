@@ -1,5 +1,6 @@
 package com.example.coinmarketjava.home;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.sliderView
     @Override
     public void onBindViewHolder(@NonNull sliderViewHolder holder, int position) {
         holder.bind(arrayList.get(position));
+
     }
 
     @Override

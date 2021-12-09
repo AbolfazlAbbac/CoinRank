@@ -9,4 +9,7 @@
     <string name="toploser">Top Loser</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="_24_hours_volume">24 Hours Volume</string>
 </resources>

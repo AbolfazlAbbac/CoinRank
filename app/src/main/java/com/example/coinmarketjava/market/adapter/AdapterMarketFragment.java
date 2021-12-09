@@ -1,27 +1,30 @@
-package com.example.coinmarketjava.home;
+package com.example.coinmarketjava.market.adapter;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.coinmarketjava.R;
+import com.example.coinmarketjava.databinding.ItemMarketfragmentBinding;
 import com.example.coinmarketjava.databinding.ItemTopgainloseBinding;
 import com.example.coinmarketjava.model.repository.DataItem;
 
 import java.util.ArrayList;
 
-public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapterRv.ViewHolder> {
+public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFragment.ViewHolder> {
 
     LayoutInflater inflater;
 
     ArrayList<DataItem> dataItems;
 
-    public TopGainLoseAdapterRv(ArrayList<DataItem> dataItems) {
+    public AdapterMarketFragment(ArrayList<DataItem> dataItems) {
         this.dataItems = dataItems;
     }
 
@@ -32,13 +35,13 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
         if (inflater == null) {
             inflater = LayoutInflater.from(parent.getContext());
         }
-        ItemTopgainloseBinding binding = ItemTopgainloseBinding.inflate(inflater, parent, false);
-        return new ViewHolder(binding);
+        ItemMarketfragmentBinding view = DataBindingUtil.inflate(inflater, R.layout.item_marketfragment, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(dataItems.get(position));
+        holder.bind(dataItems.get(position),position);
     }
 
     @Override
@@ -46,33 +49,35 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
         return dataItems.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemTopgainloseBinding binding;
 
-        public ViewHolder(@NonNull ItemTopgainloseBinding binding) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ItemMarketfragmentBinding binding;
+
+        public ViewHolder(@NonNull ItemMarketfragmentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(DataItem dataItem) {
+        public void bind(DataItem dataItem, int pos) {
 
             setupChart(dataItem);
             setupIconCrypto(dataItem);
             setupColorPriceAndPercent(dataItem);
 
-            binding.nameItemTopGain.setText(dataItem.getName());
-            binding.codeItemTopGain.setText(dataItem.getSymbol());
+            binding.nameMarketFragment.setText(dataItem.getName());
+            binding.codeMarketFragment.setText(dataItem.getSymbol());
+            binding.counterMarketFragmentTv.setText(pos + 1 + "- ");
 
             setPrice(dataItem);
 
             if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
-                binding.percentChangeItemTopGain.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
-                binding.chartItemTopGain.setColorFilter(Color.GREEN);
-                binding.arrowItemTopGain.setImageResource(R.drawable.dropup_arrows);
+                binding.percentChangeMarketFragment.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
+                binding.chartMarketFragment.setColorFilter(Color.GREEN);
+                binding.arrowMarketFragment.setImageResource(R.drawable.dropup_arrows);
             } else {
-                binding.percentChangeItemTopGain.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
-                binding.chartItemTopGain.setColorFilter(Color.RED);
-                binding.arrowItemTopGain.setImageResource(R.drawable.drop_arrows);
+                binding.percentChangeMarketFragment.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
+                binding.chartMarketFragment.setColorFilter(Color.RED);
+                binding.arrowMarketFragment.setImageResource(R.drawable.drop_arrows);
             }
 
             binding.executePendingBindings();
@@ -80,21 +85,21 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
 
         private void setPrice(@NonNull DataItem dataItem) {
             if (dataItem.getQuotes().get(0).getPrice() < 1) {
-                binding.priceItemTopGain.setText("$" + String.format("%.6f", dataItem.getQuotes().get(0).getPrice()));
+                binding.priceMarketFragment.setText("$" + String.format("%.6f", dataItem.getQuotes().get(0).getPrice()));
             } else if (dataItem.getQuotes().get(0).getPrice() < 10) {
-                binding.priceItemTopGain.setText("$" + String.format("%.4f", dataItem.getQuotes().get(0).getPrice()));
+                binding.priceMarketFragment.setText("$" + String.format("%.4f", dataItem.getQuotes().get(0).getPrice()));
             } else {
-                binding.priceItemTopGain.setText("$" + String.format("%.2f", dataItem.getQuotes().get(0).getPrice()));
+                binding.priceMarketFragment.setText("$" + String.format("%.2f", dataItem.getQuotes().get(0).getPrice()));
             }
         }
 
         private void setupColorPriceAndPercent(@NonNull DataItem dataItem) {
             if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
-                binding.priceItemTopGain.setTextColor(Color.GREEN);
-                binding.percentChangeItemTopGain.setTextColor(Color.GREEN);
+                binding.priceMarketFragment.setTextColor(Color.GREEN);
+                binding.percentChangeMarketFragment.setTextColor(Color.GREEN);
             } else if (dataItem.getQuotes().get(0).getPercentChange24h() < 0) {
-                binding.priceItemTopGain.setTextColor(Color.RED);
-                binding.percentChangeItemTopGain.setTextColor(Color.RED);
+                binding.priceMarketFragment.setTextColor(Color.RED);
+                binding.percentChangeMarketFragment.setTextColor(Color.RED);
             }
         }
 
@@ -102,14 +107,14 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
             Glide.with(binding.getRoot().getContext())
                     .load("https://s2.coinmarketcap.com/static/img/coins/32x32/" + dataItem.getId() + ".png")
                     .thumbnail(Glide.with(binding.getRoot().getContext()).load(R.drawable.loader))
-                    .into(binding.iconCryptoItemTopGain);
+                    .into(binding.iconCryptoMarketFragment);
         }
 
         private void setupChart(@NonNull DataItem dataItem) {
             Glide.with(binding.getRoot().getContext())
                     .load("https://s3.coinmarketcap.com/generated/sparklines/web/7d/usd/" + dataItem.getId() + ".png")
                     .thumbnail(Glide.with(binding.getRoot().getContext()).load(R.drawable.loader))
-                    .into(binding.chartItemTopGain);
+                    .into(binding.chartMarketFragment);
         }
     }
 
