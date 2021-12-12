@@ -21,9 +21,17 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.coinmarketjava.databinding.ActivityMainBinding;
 import com.example.coinmarketjava.home.Top10Adapter;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
+import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 import com.example.coinmarketjava.viewModel.AppViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -31,10 +39,13 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
@@ -70,9 +81,56 @@ public class MainActivity extends AppCompatActivity {
 
         smoothBottomBar();
         setupViewModel();
-
+        setupJsoup();
         networkCheck();
 
+
+    }
+
+    private void setupJsoup() {
+        Completable.fromRunnable(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document pageSrc = Jsoup.connect("https://coinmarketcap.com/").get();
+                    Elements scrapingMarketData = pageSrc.getElementsByClass("cmc-link");
+
+                    String exChange = scrapingMarketData.get(1).text();
+                    String marketCap = scrapingMarketData.get(2).text();
+                    String value24H = scrapingMarketData.get(3).text();
+                    String[] dominance = scrapingMarketData.get(4).text().split(" ");
+
+                    String dominance_Btc = dominance[1];
+                    String dominance_Eth = dominance[3];
+
+                    CryptoDataMarket cryptoDataMarket = new CryptoDataMarket(marketCap, value24H, dominance_Btc, dominance_Eth);
+                    appViewModel.insertDataToDb(cryptoDataMarket);
+
+                    Log.e("marketCap", "run: " + marketCap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
 
     }
 
@@ -85,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLost(@androidx.annotation.NonNull Network network) {
-                Snackbar.make(activityMainBinding.navHostContainer, "Internet is Lost", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(activityMainBinding.navHostContainer, "Internet is Lost", Snackbar.LENGTH_LONG).show();
             }
         };
 

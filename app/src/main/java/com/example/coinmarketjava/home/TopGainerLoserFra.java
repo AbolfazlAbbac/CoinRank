@@ -84,11 +84,6 @@ public class TopGainerLoserFra extends Fragment {
                             }
                         }
 
-                        Log.i("dataok", "accept: " + dataItems.get(0).getSymbol());
-                        Log.i("dataok", "accept: " + dataItems.get(1).getSymbol());
-                        Log.i("dataok", "accept: " + dataItems.get(2).getSymbol());
-                        Log.i("dataok", "accept: " + dataItems.get(3).getSymbol());
-
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                         fragmentTopGainerLoserBinding.rvTopGainerLoser.setLayoutManager(linearLayoutManager);
 

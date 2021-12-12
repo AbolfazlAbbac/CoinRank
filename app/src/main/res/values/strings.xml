@@ -12,4 +12,5 @@
     <string name="search">Search</string>
     <string name="market_cap">Market Cap</string>
     <string name="_24_hours_volume">24 Hours Volume</string>
+    <string name="item_not_found">Item Not Found...</string>
 </resources>

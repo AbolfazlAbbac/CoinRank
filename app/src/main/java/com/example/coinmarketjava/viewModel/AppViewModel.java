@@ -9,7 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.coinmarketjava.AppRepository;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
+import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
+import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 
 import java.util.ArrayList;
 import java.util.concurrent.Future;
@@ -46,6 +48,13 @@ public class AppViewModel extends AndroidViewModel {
         return appRepository.getAllMarket();
     }
 
+    public Flowable<RoomDataMarket> getAllDataFromDb() {
+        return appRepository.getAllData();
+    }
+
+    public void insertDataToDb(CryptoDataMarket cryptoDataMarket) {
+        appRepository.insertCryptoDataInDb(new RoomDataMarket(cryptoDataMarket));
+    }
 
     private MutableLiveData<ArrayList<Integer>> getBannerData() {
         ArrayList<Integer> pics = new ArrayList<>();

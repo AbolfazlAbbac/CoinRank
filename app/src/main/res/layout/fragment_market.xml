@@ -58,7 +58,6 @@
                             android:layout_marginStart="32dp"
                             android:layout_marginEnd="32dp"
                             android:layout_marginBottom="8dp"
-                            android:text="$1616541651451"
                             android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +92,6 @@
                             android:layout_marginStart="32dp"
                             android:layout_marginEnd="32dp"
                             android:layout_marginBottom="8dp"
-                            android:text="$1616541651451"
                             android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +119,18 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+            <TextView
+                android:id="@+id/itemNotFoundMarketFragmentTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_not_found"
+                android:textColor="@color/teal_700"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/searchBoxMarketFragment"
                 android:layout_width="match_parent"
@@ -131,12 +141,14 @@
                 android:background="@drawable/background_searchbox"
                 android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="8dp"
+                android:drawableTint="#009688"
                 android:hint="@string/search"
                 android:paddingStart="8dp"
                 android:paddingTop="12dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="12dp"
-                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:textColorHint="#009688"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +161,8 @@
                 android:clipToPadding="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/searchBoxMarketFragment" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:layout_marginStart="8dp"
-
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,8 +58,8 @@
             android:layout_width="72dp"
             android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/priceMarketFragment"
-            app:layout_constraintStart_toEndOf="@+id/nameMarketFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iconCryptoMarketFragment"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

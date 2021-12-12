@@ -3,9 +3,11 @@ package com.example.coinmarketjava;
 import android.util.Log;
 
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
+import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
 import com.example.coinmarketjava.Roomdb.RoomDao;
 import com.example.coinmarketjava.http.ApiService;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
+import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -100,5 +102,29 @@ public class AppRepository {
         return roomDao.getAllMarketFromDb();
     }
 
+    public Flowable<RoomDataMarket> getAllData() {
+        return roomDao.getAllDataMarketFromDb();
+    }
 
+    public void insertCryptoDataInDb(RoomDataMarket roomDataMarket) {
+        Completable.fromAction(() -> roomDao.insertDataToDb(roomDataMarket))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
 }

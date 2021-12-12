@@ -59,6 +59,7 @@ dependencies {
     //Dagger Hilt
     implementation 'com.google.dagger:hilt-android:2.38.1'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.38.1'
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 
 
     //Glide
@@ -86,6 +87,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation "androidx.room:room-rxjava3:$room_version"
+
+    //Jsoup
+    implementation 'org.jsoup:jsoup:1.14.3'
 
 }
 repositories {

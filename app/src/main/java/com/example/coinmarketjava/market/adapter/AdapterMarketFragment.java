@@ -41,7 +41,7 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(dataItems.get(position),position);
+        holder.bind(dataItems.get(position), position);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
 
             binding.nameMarketFragment.setText(dataItem.getName());
             binding.codeMarketFragment.setText(dataItem.getSymbol());
-            binding.counterMarketFragmentTv.setText(pos + 1 + "- ");
+            binding.counterMarketFragmentTv.setText(String.valueOf(dataItem.getCmcRank()));
 
             setPrice(dataItem);
 
@@ -119,8 +119,7 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
     }
 
     public void update(ArrayList<DataItem> newData) {
-        dataItems.clear();
-        dataItems.addAll(newData);
+        dataItems = newData;
         notifyDataSetChanged();
     }
 }
