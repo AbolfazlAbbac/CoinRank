@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
         smoothBottomBar();
         setupViewModel();
-        setupJsoup();
         networkCheck();
 
 
@@ -139,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAvailable(@androidx.annotation.NonNull Network network) {
                 callRequestCrypto();
+                setupJsoup();
+
             }
 
             @Override
