@@ -87,46 +87,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupJsoup() {
-        Completable.fromRunnable(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Document pageSrc = Jsoup.connect("https://coinmarketcap.com/").get();
-                    Elements scrapingMarketData = pageSrc.getElementsByClass("cmc-link");
+        Observable.interval(20, TimeUnit.SECONDS)
+                .flatMap(item -> Observable.fromRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Document pageSrc = Jsoup.connect("https://coinmarketcap.com/").get();
+                            Elements scrapingMarketData = pageSrc.getElementsByClass("cmc-link");
 
-                    String exChange = scrapingMarketData.get(1).text();
-                    String marketCap = scrapingMarketData.get(2).text();
-                    String value24H = scrapingMarketData.get(3).text();
-                    String[] dominance = scrapingMarketData.get(4).text().split(" ");
+                            String exChange = scrapingMarketData.get(1).text();
+                            String marketCap = scrapingMarketData.get(2).text();
+                            String value24H = scrapingMarketData.get(3).text();
+                            String[] dominance = scrapingMarketData.get(4).text().split(" ");
 
-                    String dominance_Btc = dominance[1];
-                    String dominance_Eth = dominance[3];
+                            String dominance_Btc = dominance[1];
+                            String dominance_Eth = dominance[3];
 
-                    CryptoDataMarket cryptoDataMarket = new CryptoDataMarket(marketCap, value24H, dominance_Btc, dominance_Eth);
-                    appViewModel.insertDataToDb(cryptoDataMarket);
+                            CryptoDataMarket cryptoDataMarket = new CryptoDataMarket(marketCap, value24H, dominance_Btc, dominance_Eth);
+                            appViewModel.insertDataToDb(cryptoDataMarket);
+                            Log.e("marketCap", "run: " + marketCap);
 
-                    Log.e("marketCap", "run: " + marketCap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }))
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        }).subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
+                .subscribe(new Observer<Object>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.add(d);
                     }
 
                     @Override
-                    public void onComplete() {
-
+                    public void onNext(@NonNull Object o) {
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
                 });
