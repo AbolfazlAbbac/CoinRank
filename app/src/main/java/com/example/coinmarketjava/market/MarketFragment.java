@@ -56,7 +56,7 @@ public class MarketFragment extends Fragment {
     CompositeDisposable compositeDisposable;
     ArrayList<DataItem> filtered;
     List<DataItem> dataItems;
-    List<CryptoDataMarket> cryptoDataMarkets;
+    String searchBoxText="";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -83,7 +83,7 @@ public class MarketFragment extends Fragment {
     }
 
     private void setupDataCrypto() {
-        Disposable disposable =appViewModel.getAllDataFromDb().observeOn(AndroidSchedulers.mainThread())
+        Disposable disposable = appViewModel.getAllDataFromDb().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<RoomDataMarket>() {
                     @Override
@@ -106,7 +106,7 @@ public class MarketFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                searchBoxText = charSequence.toString();
             }
 
             @Override
@@ -168,9 +168,9 @@ public class MarketFragment extends Fragment {
                         fragmentMarketBinding.marketFragmentRv.setAdapter(adapterMarketFragment);
                     } else {
                         adapterMarketFragment = (AdapterMarketFragment) fragmentMarketBinding.marketFragmentRv.getAdapter();
-                        if (filtered.size() == 700) {
+                        if (searchBoxText.isEmpty()) {
                             adapterMarketFragment.update((ArrayList<DataItem>) dataItems);
-                        } else if (filtered.size() != 0) {
+                        } else {
                             for (int i = 0; i < dataItems.size(); i++) {
                                 for (int j = 0; j < filtered.size(); j++) {
                                     if (dataItems.get(i).getSymbol().equals(filtered.get(j).getSymbol())) {
@@ -179,8 +179,7 @@ public class MarketFragment extends Fragment {
                                 }
                             }
                             adapterMarketFragment.update(filtered);
-                        } else
-                            adapterMarketFragment.update((ArrayList<DataItem>) dataItems);
+                        }
                     }
                 });
         compositeDisposable.add(disposable);
