@@ -1,7 +1,6 @@
 package com.example.coinmarketjava.market.adapter;
 
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.databinding.ItemMarketfragmentBinding;
-import com.example.coinmarketjava.databinding.ItemTopgainloseBinding;
 import com.example.coinmarketjava.model.repository.DataItem;
 
 import java.util.ArrayList;
@@ -24,8 +22,11 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
 
     ArrayList<DataItem> dataItems;
 
-    public AdapterMarketFragment(ArrayList<DataItem> dataItems) {
+    public OnClickListenerEvent onClickListenerEvent;
+
+    public AdapterMarketFragment(ArrayList<DataItem> dataItems, OnClickListenerEvent onClickListenerEvent) {
         this.dataItems = dataItems;
+        this.onClickListenerEvent = onClickListenerEvent;
     }
 
     @NonNull
@@ -41,7 +42,8 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(dataItems.get(position), position);
+        holder.bind(dataItems.get(position));
+        onClickListenerEvent.itemClick(holder.itemView, dataItems.get(position));
     }
 
     @Override
@@ -58,7 +60,7 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
             this.binding = binding;
         }
 
-        public void bind(DataItem dataItem, int pos) {
+        public void bind(DataItem dataItem) {
 
             setupChart(dataItem);
             setupIconCrypto(dataItem);
@@ -121,5 +123,9 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
     public void update(ArrayList<DataItem> newData) {
         dataItems = newData;
         notifyDataSetChanged();
+    }
+
+    public interface OnClickListenerEvent {
+        void itemClick(View view, DataItem dataItem);
     }
 }

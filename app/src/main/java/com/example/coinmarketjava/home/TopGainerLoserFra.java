@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.Utils;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
 import com.example.coinmarketjava.databinding.FragmentTopGainerLoserBinding;
@@ -30,7 +32,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class TopGainerLoserFra extends Fragment {
+public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.OnClickListenerEvent {
 
     FragmentTopGainerLoserBinding fragmentTopGainerLoserBinding;
     AppViewModel viewModel;
@@ -88,7 +90,7 @@ public class TopGainerLoserFra extends Fragment {
                         fragmentTopGainerLoserBinding.rvTopGainerLoser.setLayoutManager(linearLayoutManager);
 
                         if (fragmentTopGainerLoserBinding.rvTopGainerLoser.getAdapter() == null) {
-                            topGainLoseAdapterRv = new TopGainLoseAdapterRv(dataItems);
+                            topGainLoseAdapterRv = new TopGainLoseAdapterRv(dataItems, TopGainerLoserFra.this);
                             fragmentTopGainerLoserBinding.rvTopGainerLoser.setAdapter(topGainLoseAdapterRv);
                         } else {
                             topGainLoseAdapterRv = (TopGainLoseAdapterRv) fragmentTopGainerLoserBinding.rvTopGainerLoser.getAdapter();
@@ -106,5 +108,18 @@ public class TopGainerLoserFra extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         compositeDisposable.clear();
+    }
+
+    @Override
+    public void clickEvent(View view, DataItem dataItem) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment);
+            }
+        });
+
     }
 }

@@ -42,7 +42,7 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent {
     FragmentHomeBinding fragmentHomeBinding;
 
     MainActivity mainActivity;
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
                             top10Adapter = (Top10Adapter) fragmentHomeBinding.top10Rv.getAdapter();
                             top10Adapter.updateItem(top10List);
                         } else {
-                            top10Adapter = new Top10Adapter(top10List);
+                            top10Adapter = new Top10Adapter(top10List, HomeFragment.this);
                             fragmentHomeBinding.top10Rv.setAdapter(top10Adapter);
                         }
 
@@ -171,5 +171,17 @@ public class HomeFragment extends Fragment {
         Utils.ToolbarCustom(navController, getString(R.string.home), R.id.homeFragment, toolbar);
 
 
+    }
+
+    @Override
+    public void onClick(View view, DataItem dataItem) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment);
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.example.coinmarketjava.home;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -21,8 +22,11 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
 
     ArrayList<DataItem> dataItems;
 
-    public TopGainLoseAdapterRv(ArrayList<DataItem> dataItems) {
+    OnClickListenerEvent onClickListenerEvent;
+
+    public TopGainLoseAdapterRv(ArrayList<DataItem> dataItems, OnClickListenerEvent onClickListenerEvent) {
         this.dataItems = dataItems;
+        this.onClickListenerEvent = onClickListenerEvent;
     }
 
     @NonNull
@@ -39,6 +43,7 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(dataItems.get(position));
+        onClickListenerEvent.clickEvent(holder.itemView, dataItems.get(position));
     }
 
     @Override
@@ -47,7 +52,9 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemTopgainloseBinding binding;
+        private final ItemTopgainloseBinding binding;
+
+
 
         public ViewHolder(@NonNull ItemTopgainloseBinding binding) {
             super(binding.getRoot());
@@ -117,5 +124,9 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
         dataItems.clear();
         dataItems.addAll(newData);
         notifyDataSetChanged();
+    }
+
+    public interface OnClickListenerEvent {
+        void clickEvent(View view, DataItem dataItem);
     }
 }

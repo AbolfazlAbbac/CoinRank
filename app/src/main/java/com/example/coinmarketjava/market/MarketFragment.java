@@ -26,10 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
-import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
 import com.example.coinmarketjava.databinding.FragmentMarketBinding;
-import com.example.coinmarketjava.home.TopGainLoseAdapterRv;
 import com.example.coinmarketjava.market.adapter.AdapterMarketFragment;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.CryptoDataMarket;
@@ -47,7 +45,7 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class MarketFragment extends Fragment {
+public class MarketFragment extends Fragment implements AdapterMarketFragment.OnClickListenerEvent {
 
     FragmentMarketBinding fragmentMarketBinding;
     MainActivity mainActivity;
@@ -56,7 +54,7 @@ public class MarketFragment extends Fragment {
     CompositeDisposable compositeDisposable;
     ArrayList<DataItem> filtered;
     List<DataItem> dataItems;
-    String searchBoxText="";
+    String searchBoxText = "";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -107,11 +105,12 @@ public class MarketFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchBoxText = charSequence.toString();
+                filter(charSequence.toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
+
             }
         });
 
@@ -120,7 +119,7 @@ public class MarketFragment extends Fragment {
     private void filter(String name) {
         filtered.clear();
         for (DataItem item : dataItems) {
-            if (item.getSymbol().toLowerCase().contains(name.toLowerCase()) || item.getName().contains(name.toLowerCase())) {
+            if (item.getSymbol().toLowerCase().contains(name.toLowerCase()) || item.getName().toLowerCase().contains(name.toLowerCase())) {
                 filtered.add(item);
             }
         }
@@ -164,7 +163,7 @@ public class MarketFragment extends Fragment {
                     dataItems = allCoinMarket.getRootData().getCryptoCurrencyList();
 
                     if (fragmentMarketBinding.marketFragmentRv.getAdapter() == null) {
-                        adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems);
+                        adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems, MarketFragment.this);
                         fragmentMarketBinding.marketFragmentRv.setAdapter(adapterMarketFragment);
                     } else {
                         adapterMarketFragment = (AdapterMarketFragment) fragmentMarketBinding.marketFragmentRv.getAdapter();
@@ -224,5 +223,18 @@ public class MarketFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         compositeDisposable.clear();
+    }
+
+
+    @Override
+    public void itemClick(View view, DataItem dataItem) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
+                Navigation.findNavController(view).navigate(R.id.action_marketFragment_to_detailFragment);
+            }
+        });
     }
 }

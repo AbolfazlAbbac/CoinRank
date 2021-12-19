@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.example.coinmarketjava.home.Top10Adapter;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 import com.example.coinmarketjava.viewModel.AppViewModel;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.jsoup.Jsoup;
@@ -160,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
             connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
 
-
     private void callRequestCrypto() {
         Observable.interval(20, TimeUnit.SECONDS)
                 .flatMap(n -> appViewModel.marketFutureCall().get())
@@ -197,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
     }
 
-
     private void smoothBottomBar() {
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_container);
         navController = navHostFragment.getNavController();
@@ -208,6 +208,19 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(activityMainBinding.navigationView, navController);
 
+        activityMainBinding.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
+                if (item.getItemId() == R.id.exit) {
+                    finishAffinity();
+                } else {
+                    NavigationUI.onNavDestinationSelected(item, navController);
+                    drawerLayout.closeDrawers();
+                }
+
+                return false;
+            }
+        });
 
         setupSmoothBottomBar();
     }

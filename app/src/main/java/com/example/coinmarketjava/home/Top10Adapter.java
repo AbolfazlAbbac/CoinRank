@@ -2,6 +2,7 @@ package com.example.coinmarketjava.home;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -18,9 +19,11 @@ import java.util.ArrayList;
 public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.Top10ViewHolder> {
     ArrayList<DataItem> dataItems;
     LayoutInflater inflater;
+    OnClickEvent onClickEvent;
 
-    public Top10Adapter(ArrayList<DataItem> dataItems) {
+    public Top10Adapter(ArrayList<DataItem> dataItems, OnClickEvent onClickEvent) {
         this.dataItems = dataItems;
+        this.onClickEvent = onClickEvent;
     }
 
     @NonNull
@@ -37,6 +40,7 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.Top10ViewHol
     @Override
     public void onBindViewHolder(@NonNull Top10ViewHolder holder, int position) {
         holder.bind(dataItems.get(position));
+        onClickEvent.onClick(holder.itemView, dataItems.get(position));
     }
 
     @Override
@@ -100,5 +104,9 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.Top10ViewHol
         dataItems = newData;
         notifyDataSetChanged();
 
+    }
+
+    public interface OnClickEvent {
+        void onClick(View view, DataItem dataItem);
     }
 }
