@@ -117,7 +117,7 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment);
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment,bundle);
             }
         });
 

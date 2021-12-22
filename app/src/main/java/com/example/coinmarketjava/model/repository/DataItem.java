@@ -139,7 +139,7 @@ public class DataItem implements Parcelable {
     @SerializedName("isAudited")
     private Boolean isAudited;
 
-    protected DataItem(Parcel in) {
+    public DataItem(Parcel in) {
         id = in.readInt();
         name = in.readString();
         symbol = in.readString();

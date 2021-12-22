@@ -17,9 +17,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.Utils;
+import com.example.coinmarketjava.DetailFragment;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
@@ -134,7 +136,6 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
                             top10Adapter = new Top10Adapter(top10List, HomeFragment.this);
                             fragmentHomeBinding.top10Rv.setAdapter(top10Adapter);
                         }
-
                     }
                 });
         compositeDisposable.add(disposable);
@@ -180,7 +181,8 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment);
+
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment, bundle);
             }
         });
     }

@@ -14,4 +14,10 @@
     <string name="_24_hours_volume">24 Hours Volume</string>
     <string name="item_not_found">Item Not Found...</string>
     <string name="exit">Exit</string>
+    <string name="add_favorite">Add Favorite</string>
+    <string name="price">Price</string>
+    <string name="_24h_low_24h_high">24h Low / 24h High</string>
+    <string name="market_dominance">Market Dominance</string>
+    <string name="no_data">No Data</string>
+
 </resources>
