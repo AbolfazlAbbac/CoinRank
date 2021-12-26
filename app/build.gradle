@@ -81,12 +81,15 @@ dependencies {
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
 
-    def room_version = "2.3.0"
+    def room_version = "2.4.0"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation "androidx.room:room-rxjava3:$room_version"
+
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+
 
     //Jsoup
     implementation 'org.jsoup:jsoup:1.14.3'

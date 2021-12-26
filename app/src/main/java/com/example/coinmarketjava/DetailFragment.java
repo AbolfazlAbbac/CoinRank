@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,9 +72,22 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        textDetailForEachCrypto();
+        chartShow(dataItem);
+
+
+    }
+
+    private void chartShow(DataItem dataItem) {
+        WebView web = fragmentDetailBinding.chartWebView;
+        web.getSettings().setJavaScriptEnabled(true);
+        web.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() + "USD&interval=D&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign=chart&utm_term=BTCUSDT");
+    }
+
+
+    private void textDetailForEachCrypto() {
         DecimalFormat myFormatter = new DecimalFormat("###,###.###");
-
-
         fragmentDetailBinding.priceDetailFragmentTv.setText(myFormatter.format(dataItem.getQuotes().get(0).getPrice()));
         fragmentDetailBinding.marketCapDetailFragmentTv.setText(myFormatter.format(dataItem.getQuotes().get(0).getMarketCap()));
         fragmentDetailBinding.low24hFragmentDetailTv.setText(myFormatter.format(dataItem.getLow24h()));
@@ -85,6 +99,5 @@ public class DetailFragment extends Fragment {
         }
         fragmentDetailBinding.rankCryptoDetailToolbar.setText(String.valueOf("#" + dataItem.getCmcRank()));
         fragmentDetailBinding.titleTextDetailToolbar.setText(dataItem.getName());
-
     }
 }

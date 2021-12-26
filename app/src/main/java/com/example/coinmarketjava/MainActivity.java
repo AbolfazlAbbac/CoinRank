@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void callRequestCrypto() {
-        Observable.interval(20, TimeUnit.SECONDS)
+        Observable.interval(0,20, TimeUnit.SECONDS)
                 .flatMap(n -> appViewModel.marketFutureCall().get())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
