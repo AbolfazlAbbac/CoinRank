@@ -45,10 +45,33 @@
                         app:layout_constraintTop_toTopOf="@+id/rankCryptoDetailToolbar" />
 
                     <TextView
+                        android:id="@+id/dividerToolbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="/"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/titleTextDetailToolbar"
+                        app:layout_constraintStart_toEndOf="@+id/titleTextDetailToolbar"
+                        app:layout_constraintTop_toTopOf="@+id/titleTextDetailToolbar" />
+
+                    <TextView
+                        android:id="@+id/percentChangeTextDetailToolbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:textColor="@color/Green"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/dividerToolbar"
+                        app:layout_constraintStart_toEndOf="@+id/dividerToolbar"
+                        app:layout_constraintTop_toTopOf="@+id/dividerToolbar"
+                        tools:text="+12%" />
+
+                    <TextView
                         android:id="@+id/rankCryptoDetailToolbar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginStart="8dp"
                         android:background="@drawable/background_rank_toolbar_detail"
                         android:gravity="center"
                         android:padding="4dp"
@@ -72,6 +95,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -80,12 +104,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:layout_marginTop="16dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,15 +118,141 @@
                     <WebView
                         android:id="@+id/chartWebView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </FrameLayout>
+                        android:layout_height="270dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/webViewError"
+                        android:layout_width="match_parent"
+                        android:layout_height="270dp"
+                        android:background="@color/white"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/webViewErrorText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chart Can not Load"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/chartWebView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/chartWebView">
+
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/toggleGroupTimeFrameChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="4dp">
+
+                            <Button
+                                android:id="@+id/min1ButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_1m"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <Button
+                                android:id="@+id/min30ButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_30m"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <Button
+                                android:id="@+id/hours1ButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_1h"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <Button
+                                android:id="@+id/hours4ButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_4h"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <Button
+                                android:id="@+id/dailyButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_24h"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <Button
+                                android:id="@+id/weeklyButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_1w"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <Button
+                                android:id="@+id/monthlyButtonChart"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/_1M"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/textDetailFragmentDeail"
+                    android:id="@+id/textDetailFragmentDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="USD"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/market_status_usd"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -114,8 +264,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="4dp"
-                    android:background="@drawable/divder"
-                    app:layout_constraintTop_toBottomOf="@+id/textDetailFragmentDeail" />
+                    android:background="@drawable/divider"
+                    app:layout_constraintTop_toBottomOf="@+id/textDetailFragmentDetail" />
 
                 <TextView
                     android:id="@+id/textPriceDetailFragmentTv"
@@ -142,6 +292,79 @@
                     tools:text="564654" />
 
                 <TextView
+                    android:id="@+id/textVolume24h_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/volume_24h"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPriceDetailFragmentTv" />
+
+                <TextView
+                    android:id="@+id/volume24h_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/priceDetailFragmentTv"
+                    tools:text="40%" />
+
+                <TextView
+                    android:id="@+id/textVolume7d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/volume_7d"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textVolume24h_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/volume7d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/volume24h_fragmentDetailTv"
+                    tools:text="40%" />
+
+                <TextView
+                    android:id="@+id/textVolume30d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/volume_30d"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textVolume7d_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/volume30d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/volume7d_fragmentDetailTv"
+                    tools:text="40%" />
+
+
+                <TextView
                     android:id="@+id/textMarketCapDetailFragmentTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -151,7 +374,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textPriceDetailFragmentTv" />
+                    app:layout_constraintTop_toBottomOf="@+id/textVolume30d_fragmentDetailTv" />
 
                 <TextView
                     android:id="@+id/marketCapDetailFragmentTv"
@@ -162,7 +385,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/priceDetailFragmentTv"
+                    app:layout_constraintTop_toBottomOf="@+id/volume30d_fragmentDetailTv"
                     tools:text="454465" />
 
                 <TextView
@@ -237,7 +460,133 @@
                     app:layout_constraintTop_toBottomOf="@+id/low24h_fragmentDetailTv"
                     tools:text="40%" />
 
+
+                <TextView
+                    android:id="@+id/textPercentChange24h_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/percent_change_24h"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textMarketDominance_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/percentChange24h_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/marketDominance_fragmentDetailTv"
+                    tools:text="40%" />
+
+
+                <TextView
+                    android:id="@+id/textPercentChange7d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/percent_change_7d"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange24h_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/percentChange7d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/percentChange24h_fragmentDetailTv"
+                    tools:text="40%" />
+
+
+                <TextView
+                    android:id="@+id/textPercentChange1m_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/percent_change_1m"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange7d_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/percentChange30d_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/percentChange7d_fragmentDetailTv"
+                    tools:text="40%" />
+
+                <TextView
+                    android:id="@+id/textPercentChange2m_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/percent_change_2m"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange1m_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/percentChange2m_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/percentChange30d_fragmentDetailTv"
+                    tools:text="40%" />
+
+                <TextView
+                    android:id="@+id/textPercentChange3M_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/percent_change_3m"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange2m_fragmentDetailTv" />
+
+                <TextView
+                    android:id="@+id/percentChange3m_fragmentDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/percentChange2m_fragmentDetailTv"
+                    tools:text="40%" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </androidx.core.widget.NestedScrollView>
 
 

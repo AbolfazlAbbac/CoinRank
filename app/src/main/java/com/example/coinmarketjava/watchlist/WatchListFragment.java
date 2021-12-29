@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.Utils;
+import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.databinding.FragmentWatchListBinding;

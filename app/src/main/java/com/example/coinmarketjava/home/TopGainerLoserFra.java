@@ -1,7 +1,6 @@
 package com.example.coinmarketjava.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.Utils;
+import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
 import com.example.coinmarketjava.databinding.FragmentTopGainerLoserBinding;

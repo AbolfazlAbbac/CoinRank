@@ -99,7 +99,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
-            android:background="@drawable/divder"
+            android:background="@drawable/divider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/codeMarketFragment" />
 

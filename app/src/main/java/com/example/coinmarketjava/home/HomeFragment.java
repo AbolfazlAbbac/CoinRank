@@ -2,7 +2,6 @@ package com.example.coinmarketjava.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.Utils;
-import com.example.coinmarketjava.DetailFragment;
+import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;

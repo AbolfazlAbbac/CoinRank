@@ -19,5 +19,22 @@
     <string name="_24h_low_24h_high">24h Low / 24h High</string>
     <string name="market_dominance">Market Dominance</string>
     <string name="no_data">No Data</string>
+    <string name="_24h">1D</string>
+    <string name="_1w">1W</string>
+    <string name="_1M">1M</string>
+    <string name="_1m">1m</string>
+    <string name="_30m">30m</string>
+    <string name="_1h">1h</string>
+    <string name="_4h">4h</string>
+    <string name="market_status_usd">Market Status / USD</string>
+    <string name="volume_24h">Volume 24h</string>
+    <string name="volume_7d">Volume 7d</string>
+    <string name="volume_30d">Volume 30d</string>
+    <string name="percentChange_1h">Percent Change 1h</string>
+    <string name="percent_change_24h">Percent Change 24h</string>
+    <string name="percent_change_7d">Percent Change 7d</string>
+    <string name="percent_change_3m">Percent Change 3M</string>
+    <string name="percent_change_2m">Percent Change 2M</string>
+    <string name="percent_change_1m">Percent Change 1M</string>
 
 </resources>

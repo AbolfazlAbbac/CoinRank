@@ -1,4 +1,4 @@
-package com.example;
+package com.example.coinmarketjava;
 
 import android.graphics.Color;
 

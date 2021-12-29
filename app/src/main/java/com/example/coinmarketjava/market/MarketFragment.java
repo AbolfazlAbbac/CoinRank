@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.Utils;
+import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
@@ -75,6 +74,8 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
         setupAllCrypto();
         setupSearch();
         setupDataCrypto();
+
+
 
         return fragmentMarketBinding.getRoot();
 
@@ -186,8 +187,6 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-
         super.onViewCreated(view, savedInstanceState);
         setupToolbar(view);
     }

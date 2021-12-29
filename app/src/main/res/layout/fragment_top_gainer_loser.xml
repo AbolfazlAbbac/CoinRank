@@ -12,16 +12,20 @@
         android:layout_height="match_parent"
         tools:context=".home.TopGainerLoserFra">
 
-        <ImageView
+
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loaderTopGainerLoser"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:scaleType="fitCenter"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/loader" />
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTopGainerLoser"
