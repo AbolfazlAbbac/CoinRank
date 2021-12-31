@@ -274,7 +274,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/price"
-                    android:textColor="@color/white"
+                    android:textColor="@color/teal_200"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -291,77 +291,113 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider"
                     tools:text="564654" />
 
+                <ImageView
+                    android:id="@+id/iconDropDownVolumeChange"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/priceDetailFragmentTv"
+                    app:srcCompat="@drawable/ic_baseline_arrow_left_24" />
+
+
                 <TextView
-                    android:id="@+id/textVolume24h_fragmentDetailTv"
+                    android:id="@+id/volume_fragmentDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/volume_24h"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/white"
+                    android:text="@string/volume"
+                    android:textColor="@color/teal_200"
                     android:textSize="16sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textPriceDetailFragmentTv" />
 
-                <TextView
-                    android:id="@+id/volume24h_fragmentDetailTv"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/conExpandedVolume"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:visibility="gone"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/priceDetailFragmentTv"
-                    tools:text="40%" />
-
-                <TextView
-                    android:id="@+id/textVolume7d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/volume_7d"
                     android:layout_marginTop="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textVolume24h_fragmentDetailTv" />
+                    app:layout_constraintTop_toBottomOf="@+id/volume_fragmentDetailTv"
+                    app:layout_goneMarginTop="16dp">
 
-                <TextView
-                    android:id="@+id/volume7d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/volume24h_fragmentDetailTv"
-                    tools:text="40%" />
+                    <TextView
+                        android:id="@+id/textVolume24h_fragmentDetailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/volume_24h"
+                        android:textColor="@color/teal_200"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textVolume30d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/volume_30d"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textVolume7d_fragmentDetailTv" />
+                    <TextView
+                        android:id="@+id/volume24h_fragmentDetailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="40%" />
 
-                <TextView
-                    android:id="@+id/volume30d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/volume7d_fragmentDetailTv"
-                    tools:text="40%" />
+                    <TextView
+                        android:id="@+id/textVolume7d_fragmentDetailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/volume_7d"
+                        android:textColor="@color/teal_200"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textVolume24h_fragmentDetailTv" />
+
+                    <TextView
+                        android:id="@+id/volume7d_fragmentDetailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/volume24h_fragmentDetailTv"
+                        tools:text="40%" />
+
+                    <TextView
+                        android:id="@+id/textVolume30d_fragmentDetailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/volume_30d"
+                        android:textColor="@color/teal_200"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textVolume7d_fragmentDetailTv" />
+
+                    <TextView
+                        android:id="@+id/volume30d_fragmentDetailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/volume7d_fragmentDetailTv"
+                        tools:text="40%" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <TextView
@@ -371,10 +407,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/market_cap"
-                    android:textColor="@color/white"
+                    android:textColor="@color/teal_200"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textVolume30d_fragmentDetailTv" />
+                    app:layout_constraintTop_toBottomOf="@+id/conExpandedVolume" />
 
                 <TextView
                     android:id="@+id/marketCapDetailFragmentTv"
@@ -385,7 +421,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/volume30d_fragmentDetailTv"
+                    app:layout_constraintTop_toBottomOf="@+id/conExpandedVolume"
                     tools:text="454465" />
 
                 <TextView
@@ -395,7 +431,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/_24h_low_24h_high"
-                    android:textColor="@color/white"
+                    android:textColor="@color/teal_200"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textMarketCapDetailFragmentTv" />
@@ -443,7 +479,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/market_dominance"
-                    android:textColor="@color/white"
+                    android:textColor="@color/teal_200"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHigh24_low24h_fragmentDetailTv" />
@@ -460,128 +496,171 @@
                     app:layout_constraintTop_toBottomOf="@+id/low24h_fragmentDetailTv"
                     tools:text="40%" />
 
+                <ImageView
+                    android:id="@+id/iconDropDownPercentChange"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/marketDominance_fragmentDetailTv"
+                    app:srcCompat="@drawable/ic_baseline_arrow_left_24" />
 
                 <TextView
-                    android:id="@+id/textPercentChange24h_fragmentDetailTv"
+                    android:id="@+id/textPercentChange_fragmentDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/percent_change_24h"
-                    android:textColor="@color/white"
+                    android:text="@string/percent_change"
+                    android:textColor="@color/teal_200"
                     android:textSize="16sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textMarketDominance_fragmentDetailTv" />
 
-                <TextView
-                    android:id="@+id/percentChange24h_fragmentDetailTv"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/marketDominance_fragmentDetailTv"
-                    tools:text="40%" />
-
-
-                <TextView
-                    android:id="@+id/textPercentChange7d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/percent_change_7d"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange24h_fragmentDetailTv" />
+                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange_fragmentDetailTv">
 
-                <TextView
-                    android:id="@+id/percentChange7d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/percentChange24h_fragmentDetailTv"
-                    tools:text="40%" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/conExpandedPercent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/textPercentChange24h_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/percent_change_24h"
+                            android:textColor="@color/teal_200"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/percentChange24h_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="40%" />
 
 
-                <TextView
-                    android:id="@+id/textPercentChange1m_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/percent_change_1m"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange7d_fragmentDetailTv" />
+                        <TextView
+                            android:id="@+id/textPercentChange7d_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/percent_change_7d"
+                            android:textColor="@color/teal_200"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textPercentChange24h_fragmentDetailTv" />
 
-                <TextView
-                    android:id="@+id/percentChange30d_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/percentChange7d_fragmentDetailTv"
-                    tools:text="40%" />
+                        <TextView
+                            android:id="@+id/percentChange7d_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/percentChange24h_fragmentDetailTv"
+                            tools:text="40%" />
 
-                <TextView
-                    android:id="@+id/textPercentChange2m_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/percent_change_2m"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange1m_fragmentDetailTv" />
 
-                <TextView
-                    android:id="@+id/percentChange2m_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/percentChange30d_fragmentDetailTv"
-                    tools:text="40%" />
+                        <TextView
+                            android:id="@+id/textPercentChange1m_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/percent_change_1m"
+                            android:textColor="@color/teal_200"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textPercentChange7d_fragmentDetailTv" />
 
-                <TextView
-                    android:id="@+id/textPercentChange3M_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/percent_change_3m"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textPercentChange2m_fragmentDetailTv" />
+                        <TextView
+                            android:id="@+id/percentChange30d_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/percentChange7d_fragmentDetailTv"
+                            tools:text="40%" />
 
-                <TextView
-                    android:id="@+id/percentChange3m_fragmentDetailTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/percentChange2m_fragmentDetailTv"
-                    tools:text="40%" />
+                        <TextView
+                            android:id="@+id/textPercentChange2m_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/percent_change_2m"
+                            android:textColor="@color/teal_200"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textPercentChange1m_fragmentDetailTv" />
+
+                        <TextView
+                            android:id="@+id/percentChange2m_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/percentChange30d_fragmentDetailTv"
+                            tools:text="40%" />
+
+                        <TextView
+                            android:id="@+id/textPercentChange3M_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/percent_change_3m"
+                            android:textColor="@color/teal_200"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textPercentChange2m_fragmentDetailTv" />
+
+                        <TextView
+                            android:id="@+id/percentChange3m_fragmentDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/percentChange2m_fragmentDetailTv"
+                            tools:text="40%" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

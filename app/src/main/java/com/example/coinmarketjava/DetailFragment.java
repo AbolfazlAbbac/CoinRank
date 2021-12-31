@@ -32,6 +32,8 @@ public class DetailFragment extends Fragment {
     DataItem dataItem;
     String intervalChart = "D";
     MaterialButtonToggleGroup toggleGroup;
+    boolean isExpandedPercent = false;
+    boolean isExpandedVolume = false;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -83,6 +85,32 @@ public class DetailFragment extends Fragment {
         toggleGroup.setSingleSelection(true);
         toggleGroup.check(R.id.monthlyButtonChart);
 
+        fragmentDetailBinding.iconDropDownPercentChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isExpandedPercent = !isExpandedPercent;
+                if (isExpandedPercent) {
+                    fragmentDetailBinding.conExpandedPercent.setVisibility(View.VISIBLE);
+                    fragmentDetailBinding.iconDropDownPercentChange.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
+                } else {
+                    fragmentDetailBinding.conExpandedPercent.setVisibility(View.GONE);
+                    fragmentDetailBinding.iconDropDownPercentChange.setImageResource(R.drawable.ic_baseline_arrow_right_24);
+                }
+            }
+        });
+        fragmentDetailBinding.iconDropDownVolumeChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isExpandedVolume = !isExpandedVolume;
+                if (isExpandedVolume) {
+                    fragmentDetailBinding.conExpandedVolume.setVisibility(View.VISIBLE);
+                    fragmentDetailBinding.iconDropDownVolumeChange.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
+                } else {
+                    fragmentDetailBinding.conExpandedVolume.setVisibility(View.GONE);
+                    fragmentDetailBinding.iconDropDownVolumeChange.setImageResource(R.drawable.ic_baseline_arrow_right_24);
+                }
+            }
+        });
 
     }
 
@@ -150,11 +178,15 @@ public class DetailFragment extends Fragment {
 
         });
 
+
+
     }
+
 
 
     private void textDetailForEachCrypto() {
         DecimalFormat myFormatter = new DecimalFormat("###,###.###");
+        DecimalFormat formatDollar = new DecimalFormat("$" + "###,###.###");
         if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
             fragmentDetailBinding.percentChangeTextDetailToolbar.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
             fragmentDetailBinding.percentChangeTextDetailToolbar.setTextColor(getResources().getColor(R.color.Green));
@@ -162,10 +194,52 @@ public class DetailFragment extends Fragment {
             fragmentDetailBinding.percentChangeTextDetailToolbar.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
             fragmentDetailBinding.percentChangeTextDetailToolbar.setTextColor(getResources().getColor(R.color.Red));
         }
-        fragmentDetailBinding.priceDetailFragmentTv.setText(myFormatter.format(dataItem.getQuotes().get(0).getPrice()));
-        fragmentDetailBinding.marketCapDetailFragmentTv.setText(myFormatter.format(dataItem.getQuotes().get(0).getMarketCap()));
-        fragmentDetailBinding.low24hFragmentDetailTv.setText(myFormatter.format(dataItem.getLow24h()));
-        fragmentDetailBinding.high24hFragmentDetailTv.setText(myFormatter.format(dataItem.getHigh24h()));
+
+        fragmentDetailBinding.volume24hFragmentDetailTv.setText(formatDollar.format(dataItem.getQuotes().get(0).getVolume24h()));
+        fragmentDetailBinding.volume7dFragmentDetailTv.setText(formatDollar.format(dataItem.getQuotes().get(0).getVolume7d()));
+        fragmentDetailBinding.volume30dFragmentDetailTv.setText(formatDollar.format(dataItem.getQuotes().get(0).getVolume30d()));
+
+        if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
+            fragmentDetailBinding.percentChange24hFragmentDetailTv.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
+            fragmentDetailBinding.percentChange24hFragmentDetailTv.setTextColor(getResources().getColor(R.color.Green));
+        } else {
+            fragmentDetailBinding.percentChange24hFragmentDetailTv.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange24h()) + "%");
+            fragmentDetailBinding.percentChange24hFragmentDetailTv.setTextColor(getResources().getColor(R.color.Red));
+        }
+        if (dataItem.getQuotes().get(0).getPercentChange7d() > 0) {
+            fragmentDetailBinding.percentChange7dFragmentDetailTv.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange7d()) + "%");
+            fragmentDetailBinding.percentChange7dFragmentDetailTv.setTextColor(getResources().getColor(R.color.Green));
+        } else {
+            fragmentDetailBinding.percentChange7dFragmentDetailTv.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange7d()) + "%");
+            fragmentDetailBinding.percentChange7dFragmentDetailTv.setTextColor(getResources().getColor(R.color.Red));
+        }
+        if (dataItem.getQuotes().get(0).getPercentChange30d() > 0) {
+            fragmentDetailBinding.percentChange30dFragmentDetailTv.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange30d()) + "%");
+            fragmentDetailBinding.percentChange30dFragmentDetailTv.setTextColor(getResources().getColor(R.color.Green));
+        } else {
+            fragmentDetailBinding.percentChange30dFragmentDetailTv.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange30d()) + "%");
+            fragmentDetailBinding.percentChange30dFragmentDetailTv.setTextColor(getResources().getColor(R.color.Red));
+        }
+        if (dataItem.getQuotes().get(0).getPercentChange60d() > 0) {
+            fragmentDetailBinding.percentChange2mFragmentDetailTv.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange60d()) + "%");
+            fragmentDetailBinding.percentChange2mFragmentDetailTv.setTextColor(getResources().getColor(R.color.Green));
+        } else {
+            fragmentDetailBinding.percentChange2mFragmentDetailTv.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange60d()) + "%");
+            fragmentDetailBinding.percentChange2mFragmentDetailTv.setTextColor(getResources().getColor(R.color.Red));
+        }
+        if (dataItem.getQuotes().get(0).getPercentChange90d() > 0) {
+            fragmentDetailBinding.percentChange3mFragmentDetailTv.setText(String.format("+%.2f", dataItem.getQuotes().get(0).getPercentChange90d()) + "%");
+            fragmentDetailBinding.percentChange3mFragmentDetailTv.setTextColor(getResources().getColor(R.color.Green));
+        } else {
+            fragmentDetailBinding.percentChange3mFragmentDetailTv.setText(String.format("%.2f", dataItem.getQuotes().get(0).getPercentChange90d()) + "%");
+            fragmentDetailBinding.percentChange3mFragmentDetailTv.setTextColor(getResources().getColor(R.color.Red));
+        }
+
+
+        fragmentDetailBinding.priceDetailFragmentTv.setText(formatDollar.format(dataItem.getQuotes().get(0).getPrice()));
+        fragmentDetailBinding.marketCapDetailFragmentTv.setText(formatDollar.format(dataItem.getQuotes().get(0).getMarketCap()));
+        fragmentDetailBinding.low24hFragmentDetailTv.setText(formatDollar.format(dataItem.getLow24h()));
+        fragmentDetailBinding.high24hFragmentDetailTv.setText(formatDollar.format(dataItem.getHigh24h()));
         if (dataItem.getQuotes().get(0).getDominance() > 0) {
             fragmentDetailBinding.marketDominanceFragmentDetailTv.setText(myFormatter.format(dataItem.getQuotes().get(0).getDominance()));
         } else {

@@ -36,5 +36,7 @@
     <string name="percent_change_3m">Percent Change 3M</string>
     <string name="percent_change_2m">Percent Change 2M</string>
     <string name="percent_change_1m">Percent Change 1M</string>
+    <string name="volume">Volume</string>
+    <string name="percent_change">Percent Change</string>
 
 </resources>
