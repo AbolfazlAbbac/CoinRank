@@ -30,8 +30,8 @@ import java.text.DecimalFormat;
 public class DetailFragment extends Fragment {
     FragmentDetailBinding fragmentDetailBinding;
     DataItem dataItem;
-    String intervalChart = "D";
     MaterialButtonToggleGroup toggleGroup;
+    WebView web;
     boolean isExpandedPercent = false;
     boolean isExpandedVolume = false;
 
@@ -78,13 +78,25 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //binding data in textViews
         textDetailForEachCrypto();
-        chartShow(dataItem);
+
+        //show Charts
+        chartShow();
+
+        //setting in toggle button
         toggleGroup = fragmentDetailBinding.toggleGroupTimeFrameChart;
         toggleGroup.setSelectionRequired(true);
         toggleGroup.setSingleSelection(true);
-        toggleGroup.check(R.id.monthlyButtonChart);
+        toggleGroup.check(R.id.dailyButtonChart);
 
+        //setupDropDownArrow
+        setupDropDownArrow();
+
+    }
+
+    private void setupDropDownArrow() {
         fragmentDetailBinding.iconDropDownPercentChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,12 +123,11 @@ public class DetailFragment extends Fragment {
                 }
             }
         });
-
     }
 
-    private void chartShow(DataItem dataItem) {
+    private void chartShow() {
 
-        WebView web = fragmentDetailBinding.chartWebView;
+        web = fragmentDetailBinding.chartWebView;
         web.getSettings().setJavaScriptEnabled(true);
         web.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         web.setWebViewClient(new WebViewClient() {
@@ -127,61 +138,51 @@ public class DetailFragment extends Fragment {
                 super.onReceivedError(view, request, error);
             }
         });
-        web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                "USD&interval=1&hidesidetoolbar=M&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                "=chart&utm_term=BTCUSDT");
 
+        //Method Load Chart
+        loadCharTimeFrame("D");
+
+        //Change Time Frame with Toggle Button
         fragmentDetailBinding.toggleGroupTimeFrameChart.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (checkedId == R.id.min1ButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=1&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("1");
+
             }
             if (checkedId == R.id.min30ButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=30&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("30");
+
             }
             if (checkedId == R.id.hours1ButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=1H&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("1H");
+
             }
             if (checkedId == R.id.hours4ButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=4H&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("4H");
+
             }
             if (checkedId == R.id.dailyButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=D&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("D");
+
             }
             if (checkedId == R.id.weeklyButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=W&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("W");
+
             }
             if (checkedId == R.id.monthlyButtonChart) {
-                web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
-                        "USD&interval=M&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
-                        "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                        "=chart&utm_term=BTCUSDT");
+                loadCharTimeFrame("M");
             }
 
         });
 
 
-
     }
 
+    public void loadCharTimeFrame(String time) {
+        web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
+                "USD&interval=" + time + "&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
+                "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
+                "=chart&utm_term=BTCUSDT");
+    }
 
 
     private void textDetailForEachCrypto() {
