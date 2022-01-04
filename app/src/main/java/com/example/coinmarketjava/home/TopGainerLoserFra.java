@@ -1,6 +1,7 @@
 package com.example.coinmarketjava.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
     private void setupRv(int pos) {
         data = new ArrayList<>();
         topGainerLoserAdapter = new TopGainerLoserAdapter(this);
-        Disposable disposable = viewModel.getAllMarketFromDb()
+        Disposable disposable = viewModel.getAllMarketFromDb(compositeDisposable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<RoomAllMarket>() {

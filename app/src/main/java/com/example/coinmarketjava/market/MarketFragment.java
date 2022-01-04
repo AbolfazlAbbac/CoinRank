@@ -89,6 +89,7 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
                     public void accept(RoomDataMarket roomDataMarket) throws Throwable {
                         CryptoDataMarket cryptoDataMarket = roomDataMarket.getCryptoDataMarket();
 
+
                         fragmentMarketBinding.marketCapNumberTv.setText(cryptoDataMarket.getMarketCap());
                         fragmentMarketBinding.dailyVolumeNumberTv.setText(cryptoDataMarket.getVolume24h());
                     }
@@ -156,7 +157,7 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
     }
 
     private void setupAllCrypto() {
-        Disposable disposable = appViewModel.getAllMarketFromDb()
+        Disposable disposable = appViewModel.getAllMarketFromDb(compositeDisposable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(roomAllMarket -> {

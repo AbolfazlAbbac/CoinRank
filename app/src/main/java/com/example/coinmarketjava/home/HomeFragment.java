@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
     }
 
     private void getAllMarketFromDb() {
-        Disposable disposable = viewModel.getAllMarketFromDb()
+        Disposable disposable = viewModel.getAllMarketFromDb(compositeDisposable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<RoomAllMarket>() {

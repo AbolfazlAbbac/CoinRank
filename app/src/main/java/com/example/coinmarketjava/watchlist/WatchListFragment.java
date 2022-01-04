@@ -2,30 +2,45 @@ package com.example.coinmarketjava.watchlist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
+import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.databinding.FragmentWatchListBinding;
+import com.example.coinmarketjava.model.repository.DataItem;
+import com.example.coinmarketjava.viewModel.AppViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class WatchListFragment extends Fragment {
     FragmentWatchListBinding binding;
     MainActivity mainActivity;
+    AppViewModel appViewModel;
+    public CompositeDisposable compositeDisposable;
+    List<DataItem> dataItems;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -38,6 +53,9 @@ public class WatchListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_watch_list, container, false);
+        appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        compositeDisposable = new CompositeDisposable();
+        dataItems = new ArrayList<>();
         return binding.getRoot();
     }
 
@@ -45,6 +63,29 @@ public class WatchListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         setupToolbar(view);
+
+        appViewModel.getAllDataItemFav()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<DataItem>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
+                        Log.e("ItemFav", "onSuccess: " + dataItems.size());
+                        for (DataItem dataItemList : dataItems) {
+                            Log.e("ItemFav", "onSuccess: " + dataItemList.getSymbol());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        Log.e("ItemFav", "onError: "+e.toString() );
+                    }
+                });
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -62,5 +103,11 @@ public class WatchListFragment extends Fragment {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         Utils.ToolbarCustom(navController, getString(R.string.watchlist), R.id.watchListFragment, toolbar);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
     }
 }

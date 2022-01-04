@@ -3,12 +3,39 @@ package com.example.coinmarketjava.model.repository;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "dataItemsFav")
 public class DataItem implements Parcelable {
 
+
+    public DataItem(int id, String name, String symbol, String slug, int cmcRank, double marketPairCount, double circulatingSupply, Number totalSupply, double maxSupply, double ath, double atl, double high24h, double low24h, int isActive, String lastUpdated, String dateAdded, List<ListUSD> quotes, Boolean isAudited, boolean isFav) {
+        this.id = id;
+        this.name = name;
+        this.symbol = symbol;
+        this.slug = slug;
+        this.cmcRank = cmcRank;
+        this.marketPairCount = marketPairCount;
+        this.circulatingSupply = circulatingSupply;
+        this.totalSupply = totalSupply;
+        this.maxSupply = maxSupply;
+        this.ath = ath;
+        this.atl = atl;
+        this.high24h = high24h;
+        this.low24h = low24h;
+        this.isActive = isActive;
+        this.lastUpdated = lastUpdated;
+        this.dateAdded = dateAdded;
+        this.quotes = quotes;
+        this.isAudited = isAudited;
+    }
+
+    @PrimaryKey()
     @SerializedName("id")
     private int id;
 
@@ -38,6 +65,39 @@ public class DataItem implements Parcelable {
 
     @SerializedName("ath")
     private double ath;
+
+    protected DataItem(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        symbol = in.readString();
+        slug = in.readString();
+        cmcRank = in.readInt();
+        marketPairCount = in.readDouble();
+        circulatingSupply = in.readDouble();
+        maxSupply = in.readDouble();
+        ath = in.readDouble();
+        atl = in.readDouble();
+        high24h = in.readDouble();
+        low24h = in.readDouble();
+        isActive = in.readInt();
+        lastUpdated = in.readString();
+        dateAdded = in.readString();
+        byte tmpIsAudited = in.readByte();
+        isAudited = tmpIsAudited == 0 ? null : tmpIsAudited == 1;
+        isFav = in.readByte() != 0;
+    }
+
+    public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
+        @Override
+        public DataItem createFromParcel(Parcel in) {
+            return new DataItem(in);
+        }
+
+        @Override
+        public DataItem[] newArray(int size) {
+            return new DataItem[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -111,9 +171,6 @@ public class DataItem implements Parcelable {
         return isAudited;
     }
 
-    public static Creator<DataItem> getCREATOR() {
-        return CREATOR;
-    }
 
     @SerializedName("atl")
     private double atl;
@@ -139,37 +196,16 @@ public class DataItem implements Parcelable {
     @SerializedName("isAudited")
     private Boolean isAudited;
 
-    public DataItem(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        symbol = in.readString();
-        slug = in.readString();
-        cmcRank = in.readInt();
-        marketPairCount = in.readDouble();
-        circulatingSupply = in.readDouble();
-        maxSupply = in.readDouble();
-        ath = in.readDouble();
-        atl = in.readDouble();
-        high24h = in.readDouble();
-        low24h = in.readDouble();
-        isActive = in.readInt();
-        lastUpdated = in.readString();
-        dateAdded = in.readString();
-        byte tmpIsAudited = in.readByte();
-        isAudited = tmpIsAudited == 0 ? null : tmpIsAudited == 1;
+
+    private boolean isFav = false;
+
+    public boolean isFav() {
+        return isFav;
     }
 
-    public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
-        @Override
-        public DataItem createFromParcel(Parcel in) {
-            return new DataItem(in);
-        }
-
-        @Override
-        public DataItem[] newArray(int size) {
-            return new DataItem[size];
-        }
-    };
+    public void setFav(boolean fav) {
+        isFav = fav;
+    }
 
     @Override
     public int describeContents() {
@@ -194,5 +230,6 @@ public class DataItem implements Parcelable {
         parcel.writeString(lastUpdated);
         parcel.writeString(dateAdded);
         parcel.writeByte((byte) (isAudited == null ? 0 : isAudited ? 1 : 2));
+        parcel.writeByte((byte) (isFav ? 1 : 0));
     }
 }

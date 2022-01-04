@@ -19,12 +19,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.coinmarketjava.Roomdb.Entities.RoomDataItemsFav;
 import com.example.coinmarketjava.databinding.FragmentDetailBinding;
 import com.example.coinmarketjava.model.repository.DataItem;
+import com.example.coinmarketjava.viewModel.AppViewModel;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.text.DecimalFormat;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class DetailFragment extends Fragment {
@@ -32,8 +41,10 @@ public class DetailFragment extends Fragment {
     DataItem dataItem;
     MaterialButtonToggleGroup toggleGroup;
     WebView web;
+    AppViewModel appViewModel;
     boolean isExpandedPercent = false;
     boolean isExpandedVolume = false;
+    CompositeDisposable compositeDisposable;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -53,12 +64,33 @@ public class DetailFragment extends Fragment {
         if (item != null) {
             item.setVisible(true);
         }
+        if (dataItem.isFav()) {
+            item.setIcon(R.drawable.ic_baseline_star_rate_24);
+        } else {
+            item.setIcon(R.drawable.ic_baseline_star_outline_24);
+        }
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                dataItem.setFav(!dataItem.isFav());
+                if (dataItem.isFav()) {
+                    menuItem.setIcon(R.drawable.ic_baseline_star_rate_24);
+                    appViewModel.addFav(dataItem);
+                } else {
+                    menuItem.setIcon(R.drawable.ic_baseline_star_outline_24);
+                    appViewModel.deleteItemFav(dataItem);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        compositeDisposable = new CompositeDisposable();
+        appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         dataItem = getArguments().getParcelable(Utils.KEY_SEND_DATA);
         Log.i("TAG", "onViewCreated: " + dataItem.getSymbol());
     }
@@ -248,5 +280,11 @@ public class DetailFragment extends Fragment {
         }
         fragmentDetailBinding.rankCryptoDetailToolbar.setText(String.valueOf("#" + dataItem.getCmcRank()));
         fragmentDetailBinding.titleTextDetailToolbar.setText(dataItem.getName());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
     }
 }

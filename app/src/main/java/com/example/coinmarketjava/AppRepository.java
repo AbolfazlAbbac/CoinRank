@@ -3,12 +3,15 @@ package com.example.coinmarketjava;
 import android.util.Log;
 
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
+import com.example.coinmarketjava.Roomdb.Entities.RoomDataItemsFav;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
 import com.example.coinmarketjava.Roomdb.RoomDao;
 import com.example.coinmarketjava.http.ApiService;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
-import com.example.coinmarketjava.model.repository.CryptoDataMarket;
+import com.example.coinmarketjava.model.repository.DataItem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -23,6 +26,7 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -126,5 +130,18 @@ public class AppRepository {
 
                     }
                 });
+    }
+
+    public Completable addToFav(DataItem roomDataItemsFav) {
+        return roomDao.insert(roomDataItemsFav);
+    }
+
+    public Completable deleteFromFav(DataItem dataItem) {
+        return roomDao.deleteItemsFav(dataItem);
+
+    }
+
+    public Single<List<DataItem>> getAllFav() {
+        return roomDao.getAllDataItemsFav();
     }
 }

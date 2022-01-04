@@ -8,12 +8,17 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
+import com.example.coinmarketjava.Roomdb.Entities.RoomDataItemsFav;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
 import com.example.coinmarketjava.Roomdb.converter.AllCoinMarketTypeConverter;
+import com.example.coinmarketjava.Roomdb.converter.DataItemTypeConverter;
+import com.example.coinmarketjava.Roomdb.converter.ListUSDConverter;
 import com.example.coinmarketjava.Roomdb.converter.MarketCryptoDataTypeConverter;
+import com.example.coinmarketjava.Roomdb.converter.TottalSupplyConverter;
+import com.example.coinmarketjava.model.repository.DataItem;
 
-@TypeConverters({AllCoinMarketTypeConverter.class, MarketCryptoDataTypeConverter.class})
-@Database(version = 2, entities = {RoomAllMarket.class, RoomDataMarket.class}, exportSchema = false)
+@TypeConverters({AllCoinMarketTypeConverter.class, MarketCryptoDataTypeConverter.class, DataItemTypeConverter.class, ListUSDConverter.class, TottalSupplyConverter.class})
+@Database(version = 7, entities = {RoomAllMarket.class, RoomDataMarket.class, DataItem.class}, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static AppDataBase instance;
