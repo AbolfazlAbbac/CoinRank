@@ -16,7 +16,6 @@ public class Utils {
             if (destination.getId() == idFragment) {
                 toolbar.setTitle(title);
                 toolbar.setNavigationIcon(R.drawable.icon_menu);
-
             }
         });
     }
