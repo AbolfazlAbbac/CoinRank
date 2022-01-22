@@ -64,6 +64,7 @@ public class DetailFragment extends Fragment {
         if (item != null) {
             item.setVisible(true);
         }
+        assert item != null;
         if (dataItem.isFav()) {
             item.setIcon(R.drawable.ic_baseline_star_rate_24);
         } else {

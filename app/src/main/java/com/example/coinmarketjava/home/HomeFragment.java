@@ -2,6 +2,7 @@ package com.example.coinmarketjava.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,37 +108,31 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
     }
 
     private void getAllMarketFromDb() {
-        Disposable disposable = viewModel.getAllMarketFromDb(compositeDisposable)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<RoomAllMarket>() {
-                    @Override
-                    public void accept(RoomAllMarket roomAllMarket) throws Throwable {
-                        AllCoinMarket allCoinMarket = roomAllMarket.getAllCoinMarket();
+        viewModel.dataItemList.observe(requireActivity(), dataItems -> {
 
-                        ArrayList<DataItem> top10List = new ArrayList<>();
-                        for (int i = 0; i < allCoinMarket.getRootData().getCryptoCurrencyList().size(); i++) {
-                            for (int j = 0; j < top10ListName.size(); j++) {
-                                String coin_name = top10ListName.get(j);
-                                if (allCoinMarket.getRootData().getCryptoCurrencyList().get(i).getSymbol().equals(coin_name)) {
-                                    DataItem dataItem = allCoinMarket.getRootData().getCryptoCurrencyList().get(i);
-                                    top10List.add(dataItem);
-                                }
-                            }
-                        }
+            Log.e("TAG", "I'm Abolfazl: " + dataItems.get(0).getSymbol());
 
-                        if (fragmentHomeBinding.top10Rv.getAdapter() != null) {
-                            top10Adapter = (Top10Adapter) fragmentHomeBinding.top10Rv.getAdapter();
-                            top10Adapter.updateItem(top10List);
-                        } else {
-                            top10Adapter = new Top10Adapter(top10List, HomeFragment.this);
-                            fragmentHomeBinding.top10Rv.setAdapter(top10Adapter);
-                        }
+
+            ArrayList<DataItem> top10List = new ArrayList<>();
+            for (int i = 0; i < dataItems.size(); i++) {
+                for (int j = 0; j < top10ListName.size(); j++) {
+                    String coin_name = top10ListName.get(j);
+                    if (dataItems.get(i).getSymbol().equals(coin_name)) {
+                        DataItem dataItem = dataItems.get(i);
+                        top10List.add(dataItem);
                     }
-                });
-        compositeDisposable.add(disposable);
-    }
+                }
+            }
 
+            if (fragmentHomeBinding.top10Rv.getAdapter() != null) {
+                top10Adapter = (Top10Adapter) fragmentHomeBinding.top10Rv.getAdapter();
+                top10Adapter.updateItem(top10List);
+            } else {
+                top10Adapter = new Top10Adapter(top10List, HomeFragment.this);
+                fragmentHomeBinding.top10Rv.setAdapter(top10Adapter);
+            }
+        });
+    }
 
     private void setupViewPager2() {
         viewModel.getBannerLiveData().observe(getViewLifecycleOwner(), arrayList -> {

@@ -36,7 +36,6 @@ public interface RoomDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insert(DataItem dataItem);
 
-
     @Delete
     Completable deleteItemsFav(DataItem dataItem);
 

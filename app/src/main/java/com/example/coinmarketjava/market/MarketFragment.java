@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,6 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
         setupAllCrypto();
         setupSearch();
         setupDataCrypto();
-
 
 
         return fragmentMarketBinding.getRoot();
@@ -157,34 +157,31 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
     }
 
     private void setupAllCrypto() {
-        Disposable disposable = appViewModel.getAllMarketFromDb(compositeDisposable)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(roomAllMarket -> {
-                    AllCoinMarket allCoinMarket = roomAllMarket.getAllCoinMarket();
-                    dataItems = allCoinMarket.getRootData().getCryptoCurrencyList();
+        appViewModel.dataItemList.observe(requireActivity(), dataItems1 -> {
 
-                    if (fragmentMarketBinding.marketFragmentRv.getAdapter() == null) {
-                        adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems, MarketFragment.this);
-                        fragmentMarketBinding.marketFragmentRv.setAdapter(adapterMarketFragment);
-                    } else {
-                        adapterMarketFragment = (AdapterMarketFragment) fragmentMarketBinding.marketFragmentRv.getAdapter();
-                        if (searchBoxText.isEmpty()) {
-                            adapterMarketFragment.update((ArrayList<DataItem>) dataItems);
-                        } else {
-                            for (int i = 0; i < dataItems.size(); i++) {
-                                for (int j = 0; j < filtered.size(); j++) {
-                                    if (dataItems.get(i).getSymbol().equals(filtered.get(j).getSymbol())) {
-                                        filtered.set(j, dataItems.get(i));
-                                    }
-                                }
+            dataItems = dataItems1;
+
+            if (fragmentMarketBinding.marketFragmentRv.getAdapter() == null) {
+                adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems, MarketFragment.this);
+                fragmentMarketBinding.marketFragmentRv.setAdapter(adapterMarketFragment);
+            } else {
+                adapterMarketFragment = (AdapterMarketFragment) fragmentMarketBinding.marketFragmentRv.getAdapter();
+                if (searchBoxText.isEmpty()) {
+                    adapterMarketFragment.update((ArrayList<DataItem>) dataItems);
+                } else {
+                    for (int i = 0; i < dataItems.size(); i++) {
+                        for (int j = 0; j < filtered.size(); j++) {
+                            if (dataItems.get(i).getSymbol().equals(filtered.get(j).getSymbol())) {
+                                filtered.set(j, dataItems.get(i));
                             }
-                            adapterMarketFragment.update(filtered);
                         }
                     }
-                });
-        compositeDisposable.add(disposable);
+                    adapterMarketFragment.update(filtered);
+                }
+            }
+        });
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -233,7 +230,7 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
-                Navigation.findNavController(view).navigate(R.id.action_marketFragment_to_detailFragment,bundle);
+                Navigation.findNavController(view).navigate(R.id.action_marketFragment_to_detailFragment, bundle);
             }
         });
     }

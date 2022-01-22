@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "dataItemsFav")
@@ -33,6 +34,7 @@ public class DataItem implements Parcelable {
         this.dateAdded = dateAdded;
         this.quotes = quotes;
         this.isAudited = isAudited;
+        this.isFav = isFav;
     }
 
     @PrimaryKey()
@@ -65,39 +67,6 @@ public class DataItem implements Parcelable {
 
     @SerializedName("ath")
     private double ath;
-
-    protected DataItem(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        symbol = in.readString();
-        slug = in.readString();
-        cmcRank = in.readInt();
-        marketPairCount = in.readDouble();
-        circulatingSupply = in.readDouble();
-        maxSupply = in.readDouble();
-        ath = in.readDouble();
-        atl = in.readDouble();
-        high24h = in.readDouble();
-        low24h = in.readDouble();
-        isActive = in.readInt();
-        lastUpdated = in.readString();
-        dateAdded = in.readString();
-        byte tmpIsAudited = in.readByte();
-        isAudited = tmpIsAudited == 0 ? null : tmpIsAudited == 1;
-        isFav = in.readByte() != 0;
-    }
-
-    public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
-        @Override
-        public DataItem createFromParcel(Parcel in) {
-            return new DataItem(in);
-        }
-
-        @Override
-        public DataItem[] newArray(int size) {
-            return new DataItem[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -196,7 +165,6 @@ public class DataItem implements Parcelable {
     @SerializedName("isAudited")
     private Boolean isAudited;
 
-
     private boolean isFav = false;
 
     public boolean isFav() {
@@ -213,23 +181,83 @@ public class DataItem implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(symbol);
-        parcel.writeString(slug);
-        parcel.writeInt(cmcRank);
-        parcel.writeDouble(marketPairCount);
-        parcel.writeDouble(circulatingSupply);
-        parcel.writeDouble(maxSupply);
-        parcel.writeDouble(ath);
-        parcel.writeDouble(atl);
-        parcel.writeDouble(high24h);
-        parcel.writeDouble(low24h);
-        parcel.writeInt(isActive);
-        parcel.writeString(lastUpdated);
-        parcel.writeString(dateAdded);
-        parcel.writeByte((byte) (isAudited == null ? 0 : isAudited ? 1 : 2));
-        parcel.writeByte((byte) (isFav ? 1 : 0));
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.symbol);
+        dest.writeString(this.slug);
+        dest.writeInt(this.cmcRank);
+        dest.writeDouble(this.marketPairCount);
+        dest.writeDouble(this.circulatingSupply);
+        dest.writeSerializable(this.totalSupply);
+        dest.writeDouble(this.maxSupply);
+        dest.writeDouble(this.ath);
+        dest.writeDouble(this.atl);
+        dest.writeDouble(this.high24h);
+        dest.writeDouble(this.low24h);
+        dest.writeInt(this.isActive);
+        dest.writeString(this.lastUpdated);
+        dest.writeString(this.dateAdded);
+        dest.writeList(this.quotes);
+        dest.writeValue(this.isAudited);
+        dest.writeByte(this.isFav ? (byte) 1 : (byte) 0);
     }
+
+    public void readFromParcel(Parcel source) {
+        this.id = source.readInt();
+        this.name = source.readString();
+        this.symbol = source.readString();
+        this.slug = source.readString();
+        this.cmcRank = source.readInt();
+        this.marketPairCount = source.readDouble();
+        this.circulatingSupply = source.readDouble();
+        this.totalSupply = (Number) source.readSerializable();
+        this.maxSupply = source.readDouble();
+        this.ath = source.readDouble();
+        this.atl = source.readDouble();
+        this.high24h = source.readDouble();
+        this.low24h = source.readDouble();
+        this.isActive = source.readInt();
+        this.lastUpdated = source.readString();
+        this.dateAdded = source.readString();
+        this.quotes = new ArrayList<ListUSD>();
+        source.readList(this.quotes, ListUSD.class.getClassLoader());
+        this.isAudited = (Boolean) source.readValue(Boolean.class.getClassLoader());
+        this.isFav = source.readByte() != 0;
+    }
+
+    protected DataItem(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.symbol = in.readString();
+        this.slug = in.readString();
+        this.cmcRank = in.readInt();
+        this.marketPairCount = in.readDouble();
+        this.circulatingSupply = in.readDouble();
+        this.totalSupply = (Number) in.readSerializable();
+        this.maxSupply = in.readDouble();
+        this.ath = in.readDouble();
+        this.atl = in.readDouble();
+        this.high24h = in.readDouble();
+        this.low24h = in.readDouble();
+        this.isActive = in.readInt();
+        this.lastUpdated = in.readString();
+        this.dateAdded = in.readString();
+        this.quotes = new ArrayList<ListUSD>();
+        in.readList(this.quotes, ListUSD.class.getClassLoader());
+        this.isAudited = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isFav = in.readByte() != 0;
+    }
+
+    public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
+        @Override
+        public DataItem createFromParcel(Parcel source) {
+            return new DataItem(source);
+        }
+
+        @Override
+        public DataItem[] newArray(int size) {
+            return new DataItem[size];
+        }
+    };
 }

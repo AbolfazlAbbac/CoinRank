@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,23 +51,33 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
 
         viewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         compositeDisposable = new CompositeDisposable();
-        setupRv(pos);
 
+        viewModel.dataItemList.observe(getViewLifecycleOwner(), new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> dataItems) {
+                Log.e("TAG", "I'm Abolfazl: " + dataItems.get(0).getSymbol());
+            }
+        });
+
+        setupRv(pos);
         return fragmentTopGainerLoserBinding.getRoot();
     }
 
     private void setupRv(int pos) {
-        data = new ArrayList<>();
         topGainerLoserAdapter = new TopGainerLoserAdapter(this);
+        viewModel.dataItemList.observe(requireActivity(), new Observer<List<DataItem>>() {
+            @Override
+            public void onChanged(List<DataItem> dataItems) {
+                data = dataItems;
+            }
+        });
+
         Disposable disposable = viewModel.getAllMarketFromDb(compositeDisposable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<RoomAllMarket>() {
                     @Override
                     public void accept(RoomAllMarket roomAllMarket) throws Throwable {
-                        AllCoinMarket allCoinMarket = roomAllMarket.getAllCoinMarket();
-                        data = allCoinMarket.getRootData().getCryptoCurrencyList();
-
 
                         Collections.sort(data, new Comparator<DataItem>() {
                             @Override
@@ -117,7 +128,7 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment,bundle);
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailFragment, bundle);
             }
         });
 

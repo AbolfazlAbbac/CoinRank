@@ -19,6 +19,7 @@ import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -38,8 +39,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class AppViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<Integer>> bannerData = new MutableLiveData<>();
-    public MutableLiveData<List<RoomDataItemsFav>> dataItemFavList = new MutableLiveData<>();
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    public MutableLiveData<List<DataItem>> dataItemList = new MutableLiveData<>();
+
 
     @Inject
     AppRepository appRepository;
@@ -49,6 +50,7 @@ public class AppViewModel extends AndroidViewModel {
         super(application);
         getBannerData();
     }
+
 
     public Future<Observable<AllCoinMarket>> marketFutureCall() {
         return appRepository.makeListFutureCall();
@@ -74,13 +76,14 @@ public class AppViewModel extends AndroidViewModel {
                         public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
                             for (int i = 0; i < roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().size(); i++) {
                                 integers.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).getId());
+                                dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
                             }
 
                             for (int i = 0; i < 700; i++) {
                                 for (int k = 0; k < dataItems.size(); k++) {
                                     if (dataItems.get(k).getId() == integers.get(i)) {
                                         roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).setFav(true);
-                                        Log.e("boolean", "onSuccess: " + roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).isFav());
+//                                        Log.e("booleanS", "onSuccess: " + dataItems.get(i).getSymbol() + " " + roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).isFav());
                                     }
                                 }
                             }
@@ -91,6 +94,8 @@ public class AppViewModel extends AndroidViewModel {
 
                         }
                     });
+
+            integers.clear();
 
             return appRepository.getAllMarket();
         });
