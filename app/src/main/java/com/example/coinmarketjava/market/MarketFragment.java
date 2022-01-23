@@ -158,21 +158,20 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
 
     private void setupAllCrypto() {
         appViewModel.dataItemList.observe(requireActivity(), dataItems1 -> {
-
             dataItems = dataItems1;
 
             if (fragmentMarketBinding.marketFragmentRv.getAdapter() == null) {
-                adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems, MarketFragment.this);
+                adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems1, MarketFragment.this);
                 fragmentMarketBinding.marketFragmentRv.setAdapter(adapterMarketFragment);
             } else {
                 adapterMarketFragment = (AdapterMarketFragment) fragmentMarketBinding.marketFragmentRv.getAdapter();
                 if (searchBoxText.isEmpty()) {
-                    adapterMarketFragment.update((ArrayList<DataItem>) dataItems);
+                    adapterMarketFragment.update((ArrayList<DataItem>) dataItems1);
                 } else {
-                    for (int i = 0; i < dataItems.size(); i++) {
+                    for (int i = 0; i < dataItems1.size(); i++) {
                         for (int j = 0; j < filtered.size(); j++) {
-                            if (dataItems.get(i).getSymbol().equals(filtered.get(j).getSymbol())) {
-                                filtered.set(j, dataItems.get(i));
+                            if (dataItems1.get(i).getSymbol().equals(filtered.get(j).getSymbol())) {
+                                filtered.set(j, dataItems1.get(i));
                             }
                         }
                     }

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/conrv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/topmarket_bg"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/rankWatchList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+            <ImageView
+                android:id="@+id/logoIconIv"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/percentChangeTv"
+                app:layout_constraintStart_toEndOf="@+id/rankWatchList"
+                app:layout_constraintTop_toTopOf="@+id/nameCoinTv"
+                app:srcCompat="@drawable/icon_person" />
+
+            <TextView
+                android:id="@+id/nameCoinTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/logoIconIv"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="BTC/USD" />
+
+            <TextView
+                android:id="@+id/currentPriceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="@+id/nameCoinTv"
+                app:layout_constraintTop_toBottomOf="@+id/nameCoinTv"
+                tools:text="650440" />
+
+            <TextView
+                android:id="@+id/percentChangeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/currentPriceTv"
+                app:layout_constraintTop_toBottomOf="@+id/currentPriceTv"
+                tools:text="-15.6" />
+
+            <ImageView
+                android:id="@+id/arrowMarketFragment"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/percentChangeTv"
+                app:layout_constraintStart_toEndOf="@+id/percentChangeTv"
+                app:layout_constraintTop_toTopOf="@+id/percentChangeTv"
+                app:srcCompat="@drawable/dropup_arrows" />
+
+            <ImageView
+                android:id="@+id/fav_watchListFragment"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_star_outline_24" />
+
+            <ImageView
+                android:id="@+id/chartWatchListFragment"
+                android:layout_width="72dp"
+                android:layout_height="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/fav_watchListFragment"
+                app:layout_constraintStart_toEndOf="@+id/nameCoinTv"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

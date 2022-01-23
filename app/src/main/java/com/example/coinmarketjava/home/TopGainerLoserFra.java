@@ -52,25 +52,14 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
         viewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         compositeDisposable = new CompositeDisposable();
 
-        viewModel.dataItemList.observe(getViewLifecycleOwner(), new Observer<List<DataItem>>() {
-            @Override
-            public void onChanged(List<DataItem> dataItems) {
-                Log.e("TAG", "I'm Abolfazl: " + dataItems.get(0).getSymbol());
-            }
-        });
-
         setupRv(pos);
         return fragmentTopGainerLoserBinding.getRoot();
     }
 
     private void setupRv(int pos) {
         topGainerLoserAdapter = new TopGainerLoserAdapter(this);
-        viewModel.dataItemList.observe(requireActivity(), new Observer<List<DataItem>>() {
-            @Override
-            public void onChanged(List<DataItem> dataItems) {
-                data = dataItems;
-            }
-        });
+        viewModel.dataItemTopLose.observe(requireActivity(), dataItems ->
+                data = dataItems.getAllCoinMarket().getRootData().getCryptoCurrencyList());
 
         Disposable disposable = viewModel.getAllMarketFromDb(compositeDisposable)
                 .subscribeOn(Schedulers.io())

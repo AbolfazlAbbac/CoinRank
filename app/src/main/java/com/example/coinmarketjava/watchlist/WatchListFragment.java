@@ -35,12 +35,13 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class WatchListFragment extends Fragment {
+public class WatchListFragment extends Fragment implements WatchListAdapter.onClickListener {
     FragmentWatchListBinding binding;
     MainActivity mainActivity;
     AppViewModel appViewModel;
-    public CompositeDisposable compositeDisposable;
+    CompositeDisposable compositeDisposable;
     List<DataItem> dataItems;
+    WatchListAdapter watchListAdapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -75,6 +76,15 @@ public class WatchListFragment extends Fragment {
 
                     @Override
                     public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
+                        if (binding.rvWatchListFragment.getAdapter() == null) {
+                            watchListAdapter = new WatchListAdapter(dataItems, WatchListFragment.this);
+                            binding.rvWatchListFragment.setAdapter(watchListAdapter);
+                        } else {
+                            binding.rvWatchListFragment.setAdapter(watchListAdapter);
+                            watchListAdapter.update(dataItems);
+                        }
+
+
                         Log.e("ItemFav", "onSuccess: " + dataItems.size());
                         for (DataItem dataItemList : dataItems) {
                             Log.e("ItemFav", "onSuccess: " + dataItemList.getSymbol());
@@ -83,7 +93,7 @@ public class WatchListFragment extends Fragment {
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Log.e("ItemFav", "onError: "+e.toString() );
+                        Log.e("ItemFav", "onError: " + e.toString());
                     }
                 });
 
@@ -109,5 +119,12 @@ public class WatchListFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         compositeDisposable.clear();
+    }
+
+    @Override
+    public void onClickItem(DataItem dataItem) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
+        Navigation.findNavController(requireView()).navigate(R.id.action_watchListFragment_to_detailFragment, bundle);
     }
 }

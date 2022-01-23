@@ -12,14 +12,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.coinmarketjava.AppRepository;
 import com.example.coinmarketjava.R;
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
-import com.example.coinmarketjava.Roomdb.Entities.RoomDataItemsFav;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -40,6 +38,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class AppViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<Integer>> bannerData = new MutableLiveData<>();
     public MutableLiveData<List<DataItem>> dataItemList = new MutableLiveData<>();
+    public MutableLiveData<RoomAllMarket> dataItemTopLose = new MutableLiveData<>();
 
 
     @Inject
@@ -63,6 +62,10 @@ public class AppViewModel extends AndroidViewModel {
     public Flowable<RoomAllMarket> getAllMarketFromDb(CompositeDisposable compositeDisposable) {
         ArrayList<Integer> integers = new ArrayList<>();
         return appRepository.getAllMarket().flatMap(roomAllMarket -> {
+
+            dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
+            dataItemTopLose.postValue(roomAllMarket);
+
             appRepository.getAllFav().observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new SingleObserver<List<DataItem>>() {
@@ -76,14 +79,13 @@ public class AppViewModel extends AndroidViewModel {
                         public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
                             for (int i = 0; i < roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().size(); i++) {
                                 integers.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).getId());
-                                dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
                             }
+
 
                             for (int i = 0; i < 700; i++) {
                                 for (int k = 0; k < dataItems.size(); k++) {
                                     if (dataItems.get(k).getId() == integers.get(i)) {
                                         roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).setFav(true);
-//                                        Log.e("booleanS", "onSuccess: " + dataItems.get(i).getSymbol() + " " + roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).isFav());
                                     }
                                 }
                             }
