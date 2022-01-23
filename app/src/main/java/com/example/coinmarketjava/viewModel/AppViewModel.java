@@ -63,9 +63,6 @@ public class AppViewModel extends AndroidViewModel {
         ArrayList<Integer> integers = new ArrayList<>();
         return appRepository.getAllMarket().flatMap(roomAllMarket -> {
 
-            dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
-            dataItemTopLose.postValue(roomAllMarket);
-
             appRepository.getAllFav().observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new SingleObserver<List<DataItem>>() {
@@ -79,6 +76,8 @@ public class AppViewModel extends AndroidViewModel {
                         public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
                             for (int i = 0; i < roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().size(); i++) {
                                 integers.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).getId());
+                                dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
+                                dataItemTopLose.postValue(roomAllMarket);
                             }
 
 

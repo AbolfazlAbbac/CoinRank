@@ -121,7 +121,8 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
     }
 
     public void update(ArrayList<DataItem> newData) {
-        dataItems = newData;
+        dataItems.clear();
+        dataItems.addAll(newData);
         notifyDataSetChanged();
     }
 
