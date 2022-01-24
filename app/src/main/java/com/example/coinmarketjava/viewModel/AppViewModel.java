@@ -38,7 +38,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class AppViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<Integer>> bannerData = new MutableLiveData<>();
     public MutableLiveData<List<DataItem>> dataItemList = new MutableLiveData<>();
-    public MutableLiveData<RoomAllMarket> dataItemTopLose = new MutableLiveData<>();
+    public List<DataItem> items = new ArrayList<>();
 
 
     @Inject
@@ -61,6 +61,7 @@ public class AppViewModel extends AndroidViewModel {
 
     public Flowable<RoomAllMarket> getAllMarketFromDb(CompositeDisposable compositeDisposable) {
         ArrayList<Integer> integers = new ArrayList<>();
+
         return appRepository.getAllMarket().flatMap(roomAllMarket -> {
 
             appRepository.getAllFav().observeOn(AndroidSchedulers.mainThread())
@@ -77,7 +78,7 @@ public class AppViewModel extends AndroidViewModel {
                             for (int i = 0; i < roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().size(); i++) {
                                 integers.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).getId());
                                 dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
-                                dataItemTopLose.postValue(roomAllMarket);
+                                items.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i));
                             }
 
 
@@ -98,8 +99,10 @@ public class AppViewModel extends AndroidViewModel {
 
             integers.clear();
 
+
             return appRepository.getAllMarket();
         });
+
     }
 
     public Flowable<RoomDataMarket> getAllDataFromDb() {

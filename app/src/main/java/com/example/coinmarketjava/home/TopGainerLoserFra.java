@@ -58,8 +58,6 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
 
     private void setupRv(int pos) {
         topGainerLoserAdapter = new TopGainerLoserAdapter(this);
-        viewModel.dataItemTopLose.observe(requireActivity(), dataItems ->
-                data = dataItems.getAllCoinMarket().getRootData().getCryptoCurrencyList());
 
         Disposable disposable = viewModel.getAllMarketFromDb(compositeDisposable)
                 .subscribeOn(Schedulers.io())
@@ -67,6 +65,8 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
                 .subscribe(new Consumer<RoomAllMarket>() {
                     @Override
                     public void accept(RoomAllMarket roomAllMarket) throws Throwable {
+
+                        data = viewModel.items;
 
                         Collections.sort(data, new Comparator<DataItem>() {
                             @Override
@@ -78,7 +78,9 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
                         ArrayList<DataItem> dataItems = new ArrayList<>();
                         if (pos == 0) {
                             for (int i = 0; i < 10; i++) {
-                                dataItems.add(data.get(data.size() - 1 - i));
+                                int size = data.size();
+                                Log.e("size abol", "accept: " + size);
+                                dataItems.add(data.get(size - 1 - i));
                             }
                         } else if (pos == 1) {
                             for (int i = 0; i < 10; i++) {
@@ -97,11 +99,11 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
                             topGainLoseAdapterRv.update(dataItems);
                         }
                         fragmentTopGainerLoserBinding.loaderTopGainerLoser.setVisibility(View.GONE);
+
                     }
-
                 });
-
         compositeDisposable.add(disposable);
+
     }
 
     @Override
