@@ -38,7 +38,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class AppViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<Integer>> bannerData = new MutableLiveData<>();
     public MutableLiveData<List<DataItem>> dataItemList = new MutableLiveData<>();
-    public List<DataItem> items = new ArrayList<>();
+    public ArrayList<DataItem> items = new ArrayList<>();
 
 
     @Inject
@@ -61,9 +61,9 @@ public class AppViewModel extends AndroidViewModel {
 
     public Flowable<RoomAllMarket> getAllMarketFromDb(CompositeDisposable compositeDisposable) {
         ArrayList<Integer> integers = new ArrayList<>();
+        items.clear();
 
         return appRepository.getAllMarket().flatMap(roomAllMarket -> {
-
             appRepository.getAllFav().observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new SingleObserver<List<DataItem>>() {
@@ -98,11 +98,8 @@ public class AppViewModel extends AndroidViewModel {
                     });
 
             integers.clear();
-
-
             return appRepository.getAllMarket();
         });
-
     }
 
     public Flowable<RoomDataMarket> getAllDataFromDb() {

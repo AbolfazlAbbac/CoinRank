@@ -2,6 +2,8 @@ package com.example.coinmarketjava;
 
 import android.util.Log;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.coinmarketjava.Roomdb.Entities.RoomAllMarket;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataItemsFav;
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
@@ -9,6 +11,7 @@ import com.example.coinmarketjava.Roomdb.RoomDao;
 import com.example.coinmarketjava.http.ApiService;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
+import com.example.coinmarketjava.viewModel.AppViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +109,7 @@ public class AppRepository {
 
     public Flowable<RoomAllMarket> getAllMarket() {
         return roomDao.getAllMarketFromDb();
+
     }
 
     public Flowable<RoomDataMarket> getAllData() {

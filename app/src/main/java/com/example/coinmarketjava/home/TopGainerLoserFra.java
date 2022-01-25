@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -39,6 +40,7 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
     AppViewModel viewModel;
     CompositeDisposable compositeDisposable;
     List<DataItem> data;
+    int pos;
     TopGainerLoserAdapter topGainerLoserAdapter;
     TopGainLoseAdapterRv topGainLoseAdapterRv;
 
@@ -47,7 +49,7 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
         fragmentTopGainerLoserBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_top_gainer_loser, container, false);
 
         Bundle args = getArguments();
-        int pos = args != null ? args.getInt("pos") : 1;
+        pos = args != null ? args.getInt("pos") : 1;
 
         viewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         compositeDisposable = new CompositeDisposable();
@@ -66,7 +68,21 @@ public class TopGainerLoserFra extends Fragment implements TopGainLoseAdapterRv.
                     @Override
                     public void accept(RoomAllMarket roomAllMarket) throws Throwable {
 
-                        data = viewModel.items;
+                        viewModel.getAllDataItemFav().subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<List<DataItem>>() {
+                                    @Override
+                                    public void accept(List<DataItem> dataItems) throws Throwable {
+                                        for (int i = 0; i < roomAllMarket.allCoinMarket.getRootData().getCryptoCurrencyList().size(); i++) {
+                                            for (int k = 0; k < dataItems.size(); k++) {
+                                                if (dataItems.get(k).getId() == roomAllMarket.allCoinMarket.getRootData().getCryptoCurrencyList().get(i).getId()) {
+                                                    roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).setFav(true);
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                        data = roomAllMarket.allCoinMarket.getRootData().getCryptoCurrencyList();
 
                         Collections.sort(data, new Comparator<DataItem>() {
                             @Override
