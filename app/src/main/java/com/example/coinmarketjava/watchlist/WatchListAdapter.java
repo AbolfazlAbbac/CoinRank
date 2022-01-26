@@ -2,6 +2,7 @@ package com.example.coinmarketjava.watchlist;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.ViewHolderWatch> {
     List<DataItem> dataItemList;
-    onClickListener onClickListener;
+    static onClickListener onClickListener;
 
     public WatchListAdapter(List<DataItem> dataItems, onClickListener listener) {
         this.dataItemList = dataItems;
@@ -56,6 +57,24 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
             setupChart(dataItem);
             setupIconCrypto(dataItem);
             setupColorPriceAndPercent(dataItem);
+
+            if (dataItem.isFav()) {
+                binding.favWatchListFragment.setImageResource(R.drawable.ic_baseline_star_rate_24);
+            } else {
+                binding.favWatchListFragment.setImageResource(R.drawable.ic_baseline_star_outline_24);
+            }
+
+            binding.favWatchListFragment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickListener.removeAndAddFav(dataItem);
+                    if (dataItem.isFav())
+                        binding.favWatchListFragment.setImageResource(R.drawable.ic_baseline_star_outline_24);
+                    else
+                        binding.favWatchListFragment.setImageResource(R.drawable.ic_baseline_star_rate_24);
+                }
+            });
+
 
             binding.nameCoinTv.setText(dataItem.getName() + dataItem.getSymbol());
             binding.rankWatchList.setText(String.valueOf(dataItem.getCmcRank()));
@@ -118,5 +137,7 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
 
     interface onClickListener {
         void onClickItem(DataItem dataItem);
+
+        void removeAndAddFav(DataItem dataItem);
     }
 }

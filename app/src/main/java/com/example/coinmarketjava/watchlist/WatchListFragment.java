@@ -32,6 +32,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -40,12 +41,13 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
     MainActivity mainActivity;
     AppViewModel appViewModel;
     CompositeDisposable compositeDisposable;
-    List<DataItem> dataItems;
     WatchListAdapter watchListAdapter;
+    List<DataItem> items;
 
     @Override
     public void onAttach(@NonNull Context context) {
         mainActivity = (MainActivity) context;
+        items = new ArrayList<>();
         super.onAttach(context);
     }
 
@@ -56,7 +58,6 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_watch_list, container, false);
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         compositeDisposable = new CompositeDisposable();
-        dataItems = new ArrayList<>();
         return binding.getRoot();
     }
 
@@ -76,6 +77,26 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
 
                     @Override
                     public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
+
+
+                        appViewModel.getAllDataItemFav().subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<List<DataItem>>() {
+                                    @Override
+                                    public void accept(List<DataItem> dataItems1) throws Throwable {
+                                        for (int i = 0; i < dataItems.size(); i++) {
+                                            for (int k = 0; k < dataItems1.size(); k++) {
+                                                if (dataItems1.get(k).getId() == dataItems.get(i).getId()) {
+                                                    dataItems.get(i).setFav(true);
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+
+                        items = dataItems;
+
+
                         if (binding.rvWatchListFragment.getAdapter() == null) {
                             watchListAdapter = new WatchListAdapter(dataItems, WatchListFragment.this);
                             binding.rvWatchListFragment.setAdapter(watchListAdapter);
@@ -126,5 +147,13 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
         Bundle bundle = new Bundle();
         bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
         Navigation.findNavController(requireView()).navigate(R.id.action_watchListFragment_to_detailFragment, bundle);
+    }
+
+    @Override
+    public void removeAndAddFav(DataItem dataItem) {
+        if (dataItem.isFav())
+            appViewModel.deleteItemFav(dataItem);
+        else
+            appViewModel.addFav(dataItem);
     }
 }
