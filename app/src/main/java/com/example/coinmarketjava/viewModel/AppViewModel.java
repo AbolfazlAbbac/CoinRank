@@ -59,6 +59,7 @@ public class AppViewModel extends AndroidViewModel {
         appRepository.insertAllMarket(allCoinMarket);
     }
 
+
     public Flowable<RoomAllMarket> getAllMarketFromDb(CompositeDisposable compositeDisposable) {
         ArrayList<Integer> integers = new ArrayList<>();
         items.clear();
