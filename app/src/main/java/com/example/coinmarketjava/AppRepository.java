@@ -43,8 +43,6 @@ public class AppRepository {
         this.roomDao = roomDao;
     }
 
-    ///git test return
-
     public Future<Observable<AllCoinMarket>> makeListFutureCall() {
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
 

@@ -38,5 +38,6 @@
     <string name="percent_change_1m">Percent Change 1M</string>
     <string name="volume">Volume</string>
     <string name="percent_change">Percent Change</string>
+    <string name="TextEmptyStateWatchList">There are nothing here! :)</string>
 
 </resources>

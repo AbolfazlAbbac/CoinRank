@@ -47,7 +47,6 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
     @Override
     public void onAttach(@NonNull Context context) {
         mainActivity = (MainActivity) context;
-        items = new ArrayList<>();
         super.onAttach(context);
     }
 
@@ -95,6 +94,12 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
                                 });
 
                         items = dataItems;
+
+                        if (dataItems.size() > 0) {
+                            binding.conEmptyStateWatchList.setVisibility(View.GONE);
+                        } else {
+                            binding.conEmptyStateWatchList.setVisibility(View.VISIBLE);
+                        }
 
 
                         if (binding.rvWatchListFragment.getAdapter() == null) {
