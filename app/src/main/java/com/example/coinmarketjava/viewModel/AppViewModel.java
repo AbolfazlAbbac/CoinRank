@@ -83,7 +83,7 @@ public class AppViewModel extends AndroidViewModel {
                             }
 
 
-                            for (int i = 0; i < 700; i++) {
+                            for (int i = 0; i < 2000; i++) {
                                 for (int k = 0; k < dataItems.size(); k++) {
                                     if (dataItems.get(k).getId() == integers.get(i)) {
                                         roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).setFav(true);
