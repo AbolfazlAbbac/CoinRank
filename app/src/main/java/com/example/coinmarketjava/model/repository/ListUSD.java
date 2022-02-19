@@ -1,8 +1,13 @@
 package com.example.coinmarketjava.model.repository;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class ListUSD {
+import java.io.Serializable;
+
+public class ListUSD implements Parcelable {
     @SerializedName("price")
     private double price;
 
@@ -20,6 +25,34 @@ public class ListUSD {
 
     @SerializedName("percentChange1h")
     private double percentChange1h;
+
+    protected ListUSD(Parcel in) {
+        price = in.readDouble();
+        volume7d = in.readDouble();
+        volume30d = in.readDouble();
+        percentChange1h = in.readDouble();
+        lastUpdated = in.readString();
+        percentChange24h = in.readDouble();
+        percentChange7d = in.readDouble();
+        percentChange30d = in.readDouble();
+        percentChange60d = in.readDouble();
+        percentChange90d = in.readDouble();
+        fullyDilluttedMarketCap = in.readDouble();
+        dominance = in.readDouble();
+        turnover = in.readDouble();
+    }
+
+    public static final Creator<ListUSD> CREATOR = new Creator<ListUSD>() {
+        @Override
+        public ListUSD createFromParcel(Parcel in) {
+            return new ListUSD(in);
+        }
+
+        @Override
+        public ListUSD[] newArray(int size) {
+            return new ListUSD[size];
+        }
+    };
 
     public double getPrice() {
         return price;
@@ -107,4 +140,26 @@ public class ListUSD {
 
     @SerializedName("turnover")
     private double turnover;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(price);
+        dest.writeDouble(volume7d);
+        dest.writeDouble(volume30d);
+        dest.writeDouble(percentChange1h);
+        dest.writeString(lastUpdated);
+        dest.writeDouble(percentChange24h);
+        dest.writeDouble(percentChange7d);
+        dest.writeDouble(percentChange30d);
+        dest.writeDouble(percentChange60d);
+        dest.writeDouble(percentChange90d);
+        dest.writeDouble(fullyDilluttedMarketCap);
+        dest.writeDouble(dominance);
+        dest.writeDouble(turnover);
+    }
 }

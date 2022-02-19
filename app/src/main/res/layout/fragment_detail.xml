@@ -183,7 +183,7 @@
                                 android:text="@string/_30m"
                                 android:textAllCaps="false"
                                 android:textColor="@color/white"
-                                android:textSize="10sp" />
+                                android:textSize="9sp" />
 
                             <Button
                                 android:id="@+id/hours1ButtonChart"

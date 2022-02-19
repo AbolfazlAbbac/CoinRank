@@ -93,7 +93,9 @@ public class DetailFragment extends Fragment {
         setHasOptionsMenu(true);
         compositeDisposable = new CompositeDisposable();
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
-        dataItem = getArguments().getParcelable(Utils.KEY_SEND_DATA);
+        if (getArguments() != null) {
+            dataItem = getArguments().getParcelable(Utils.KEY_SEND_DATA);
+        }
         Log.i("TAG", "onViewCreated: " + dataItem.getSymbol());
     }
 
