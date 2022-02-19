@@ -33,5 +33,14 @@
         android:id="@+id/detailFragment"
         android:name="com.example.coinmarketjava.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_fullScreen"
+            app:destination="@id/fullScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullScreen"
+        android:name="com.example.coinmarketjava.FullScreen"
+        android:label="fragment_full_screen"
+        tools:layout="@layout/fragment_full_screen" />
 </navigation>

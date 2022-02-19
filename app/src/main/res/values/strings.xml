@@ -40,5 +40,7 @@
     <string name="percent_change">Percent Change</string>
     <string name="TextEmptyStateWatchList">There are nothing here! :)</string>
     <string name="there_isn_t_connection">There isn\'t Connection! Please Check Your Connection</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

@@ -115,6 +115,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <TextView
+                        android:id="@+id/fullscreenChart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Full Screen"
+                        android:textColor="@color/purple_200"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
                     <WebView
                         android:id="@+id/chartWebView"
                         android:layout_width="match_parent"
@@ -148,6 +159,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
+                        android:id="@+id/linearLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -307,11 +319,11 @@
                     android:id="@+id/volume_fragmentDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/volume"
                     android:textColor="@color/teal_200"
                     android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textPriceDetailFragmentTv" />
 
@@ -319,11 +331,11 @@
                     android:id="@+id/conExpandedVolume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:layout_marginTop="16dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/volume_fragmentDetailTv"
                     app:layout_goneMarginTop="16dp">
@@ -500,9 +512,9 @@
                     android:id="@+id/iconDropDownPercentChange"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:scaleType="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:scaleType="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/marketDominance_fragmentDetailTv"
                     app:srcCompat="@drawable/ic_baseline_arrow_left_24" />
@@ -511,11 +523,11 @@
                     android:id="@+id/textPercentChange_fragmentDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/percent_change"
                     android:textColor="@color/teal_200"
                     android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textMarketDominance_fragmentDetailTv" />
 

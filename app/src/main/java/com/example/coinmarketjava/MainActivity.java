@@ -1,6 +1,7 @@
 package com.example.coinmarketjava;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkRequest;
@@ -187,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         } else
             connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
+
 
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));

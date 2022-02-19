@@ -1,5 +1,8 @@
 package com.example.coinmarketjava;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.coinmarketjava.Roomdb.Entities.RoomDataItemsFav;
 import com.example.coinmarketjava.databinding.FragmentDetailBinding;
@@ -46,6 +50,7 @@ public class DetailFragment extends Fragment {
     boolean isExpandedPercent = false;
     boolean isExpandedVolume = false;
     CompositeDisposable compositeDisposable;
+    String link;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -108,6 +113,7 @@ public class DetailFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         return fragmentDetailBinding.getRoot();
     }
 
@@ -120,7 +126,14 @@ public class DetailFragment extends Fragment {
 
         //show Charts
         chartShow();
-
+        Bundle bundle = new Bundle();
+        bundle.putString("link", link);
+        fragmentDetailBinding.fullscreenChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(requireView()).navigate(R.id.action_detailFragment_to_fullScreen, bundle);
+            }
+        });
         //setting in toggle button
         toggleGroup = fragmentDetailBinding.toggleGroupTimeFrameChart;
         toggleGroup.setSelectionRequired(true);
@@ -129,8 +142,8 @@ public class DetailFragment extends Fragment {
 
         //setupDropDownArrow
         setupDropDownArrow();
-
     }
+
 
     private void setupDropDownArrow() {
         fragmentDetailBinding.iconDropDownPercentChange.setOnClickListener(new View.OnClickListener() {
@@ -213,18 +226,15 @@ public class DetailFragment extends Fragment {
 
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
 
     public void loadCharTimeFrame(String time) {
-        web.loadUrl("https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
+        link = "https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=" + dataItem.getSymbol() +
                 "USD&interval=" + time + "&hidesidetoolbar=1&hidetoptoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&hideideas=1&theme=Dark&style=1&timezone=" +
                 "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
-                "=chart&utm_term=BTCUSDT");
-    }
+                "=chart&utm_term=BTCUSDT";
 
+        web.loadUrl(link);
+    }
 
     private void textDetailForEachCrypto() {
         DecimalFormat myFormatter = new DecimalFormat("###,###.###");
