@@ -1,5 +1,6 @@
 package com.example.coinmarketjava;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkRequest;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +37,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -147,14 +152,35 @@ public class MainActivity extends AppCompatActivity {
             public void onAvailable(@androidx.annotation.NonNull Network network) {
                 callRequestCrypto();
                 setupJsoup();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activityMainBinding.thereisnotconnection.setVisibility(View.GONE);
+                    }
+                });
 
             }
 
             @Override
             public void onLost(@androidx.annotation.NonNull Network network) {
-                Snackbar.make(activityMainBinding.navHostContainer, "Internet is Lost", Snackbar.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activityMainBinding.thereisnotconnection.setVisibility(View.VISIBLE);
+                    }
+                });
+
             }
         };
+        if (!isNetworkAvailable(MainActivity.this)) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    activityMainBinding.thereisnotconnection.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             connectivityManager.registerDefaultNetworkCallback(networkCallback);
@@ -162,8 +188,13 @@ public class MainActivity extends AppCompatActivity {
             connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
 
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
     private void callRequestCrypto() {
-        Observable.interval(0,20, TimeUnit.SECONDS)
+        Observable.interval(0, 20, TimeUnit.SECONDS)
                 .flatMap(n -> appViewModel.marketFutureCall().get())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

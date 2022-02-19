@@ -1,5 +1,6 @@
 package com.example.coinmarketjava;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -208,6 +209,11 @@ public class DetailFragment extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     public void loadCharTimeFrame(String time) {
