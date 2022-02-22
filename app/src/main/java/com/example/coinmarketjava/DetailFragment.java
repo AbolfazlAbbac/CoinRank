@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -134,6 +135,15 @@ public class DetailFragment extends Fragment {
                 Navigation.findNavController(requireView()).navigate(R.id.action_detailFragment_to_fullScreen, bundle);
             }
         });
+
+        fragmentDetailBinding.coinmarketcaplink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://coinmarketcap.com/currencies/" + dataItem.getSlug()));
+                startActivity(browserIntent);
+            }
+        });
+
         //setting in toggle button
         toggleGroup = fragmentDetailBinding.toggleGroupTimeFrameChart;
         toggleGroup.setSelectionRequired(true);
