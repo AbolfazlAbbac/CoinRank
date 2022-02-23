@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 
 public class FullScreen extends Fragment {
     String link;
@@ -24,16 +25,17 @@ public class FullScreen extends Fragment {
         if (getArguments() != null) {
             link = getArguments().getString("link");
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         if (activity != null) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+
         return inflater.inflate(R.layout.fragment_full_screen, container, false);
 
     }
@@ -48,4 +50,9 @@ public class FullScreen extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+    }
 }

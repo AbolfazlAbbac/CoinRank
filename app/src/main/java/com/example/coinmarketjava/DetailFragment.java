@@ -40,6 +40,7 @@ import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import me.ibrahimsn.lib.SmoothBottomBar;
 
 
 public class DetailFragment extends Fragment {
@@ -52,6 +53,15 @@ public class DetailFragment extends Fragment {
     boolean isExpandedVolume = false;
     CompositeDisposable compositeDisposable;
     String link;
+    String linkTwo;
+    SmoothBottomBar smoothBottomBar;
+
+
+    private void hideBottomNavigationBar() {
+        smoothBottomBar = getActivity().findViewById(R.id.bottomNavigation);
+        smoothBottomBar.setVisibility(View.GONE);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -96,6 +106,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideBottomNavigationBar();
         setHasOptionsMenu(true);
         compositeDisposable = new CompositeDisposable();
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
@@ -128,7 +139,7 @@ public class DetailFragment extends Fragment {
         //show Charts
         chartShow();
         Bundle bundle = new Bundle();
-        bundle.putString("link", link);
+        bundle.putString("link", linkTwo);
         fragmentDetailBinding.fullscreenChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,6 +254,8 @@ public class DetailFragment extends Fragment {
                 "Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign" +
                 "=chart&utm_term=BTCUSDT";
 
+        linkTwo = "https://s.tradingview.com/widgetembed/?frameElementId=tradingview_76d87&symbol=BTCUSD&interval=1&hidesidetoolbar=0&hidetoptoolbar=0&symboledit=0&saveimage=0&toolbarbg=F1F3F6&studies=[]&hideideas=0&theme=Dark&style=1&timezone=Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=coinmarketcap.com&utm_medium=widget&utm_campaign=chart&utm_term=BTCUSDT";
+
         web.loadUrl(link);
     }
 
@@ -315,5 +328,6 @@ public class DetailFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         compositeDisposable.clear();
+        smoothBottomBar.setVisibility(View.VISIBLE);
     }
 }
