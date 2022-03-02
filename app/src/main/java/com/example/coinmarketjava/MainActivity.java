@@ -48,6 +48,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
@@ -192,6 +193,12 @@ public class MainActivity extends AppCompatActivity {
         Observable.interval(0, 20, TimeUnit.SECONDS)
                 .flatMap(n -> appViewModel.marketFutureCall().get())
                 .subscribeOn(Schedulers.io())
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Throwable {
+                        activityMainBinding.internetLoader.setVisibility(View.GONE);
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AllCoinMarket>() {
                     @Override
@@ -205,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onNext(@NonNull AllCoinMarket allCoinMarket) {
                         appViewModel.insertToRoomDb(allCoinMarket);
 //                        Log.e("MainActivity", "getCrypto - onNext -> ok: ");
+                        activityMainBinding.internetLoader.setVisibility(View.GONE);
 
                     }
 

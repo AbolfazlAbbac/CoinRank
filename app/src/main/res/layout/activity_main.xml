@@ -43,6 +43,23 @@
                 app:menu="@menu/menu_main"
                 app:textSize="14sp" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/internetLoader"
+                android:layout_width="85dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="120dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/shape_back_loading_main"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loadering" />
+
             <TextView
                 android:id="@+id/thereisnotconnection"
                 android:layout_width="match_parent"
@@ -53,7 +70,6 @@
                 android:background="@drawable/error"
                 android:gravity="center"
                 android:padding="16dp"
-
                 android:text="@string/there_isn_t_connection"
                 android:textColor="@color/white"
                 android:visibility="gone"
