@@ -1,22 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"
-        android:title="@string/home" />
-    <item
-        android:id="@+id/marketFragment"
-        android:icon="@drawable/ic_barchart"
-        android:title="@string/market" />
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/mainMenu"
+            android:title="@string/main_menu">
+            <menu>
+                <item
+                    android:id="@+id/homeFragment"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_home"
+                    android:title="@string/home" />
+                <item
+                    android:id="@+id/marketFragment"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_barchart"
+                    android:title="@string/market" />
 
-    <item
-        android:id="@+id/watchListFragment"
-        android:icon="@drawable/ic_bookmark"
-        android:title="@string/watchlist" />
+                <item
+                    android:id="@+id/watchListFragment"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_bookmark"
+                    android:title="@string/watchlist" />
+            </menu>
+        </item>
+    </group>
 
-    <item
-        android:id="@+id/exit"
-        android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:title="@string/exit" />
+    <group android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/secondHeader"
+            android:title="@string/more">
+            <menu>
+                <item
+                    android:id="@+id/about"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_baseline_info_24"
+                    android:title="@string/about" />
+
+                <item
+                    android:id="@+id/exit"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_baseline_exit_to_app_24"
+
+                    android:title="@string/exit" />
+            </menu>
+        </item>
+
+    </group>
+
 </menu>

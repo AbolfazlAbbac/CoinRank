@@ -34,6 +34,7 @@ import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
 import com.example.coinmarketjava.viewModel.AppViewModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +56,19 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
     ArrayList<DataItem> filtered;
     List<DataItem> dataItems;
     String searchBoxText = "";
+    NavigationView navigationView;
 
     @Override
     public void onAttach(@NonNull Context context) {
         mainActivity = (MainActivity) context;
         super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        navigationView = getActivity().findViewById(R.id.navigationView);
+        navigationView.setCheckedItem(R.id.marketFragment);
     }
 
     @Override
@@ -233,4 +242,5 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
             }
         });
     }
+
 }

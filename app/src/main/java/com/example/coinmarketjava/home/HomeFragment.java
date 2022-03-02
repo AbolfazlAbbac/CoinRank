@@ -27,12 +27,14 @@ import com.example.coinmarketjava.databinding.FragmentHomeBinding;
 import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
 import com.example.coinmarketjava.viewModel.AppViewModel;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -61,12 +63,19 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
         super.onAttach(context);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //         Inflate the layout for this fragment
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        NavigationView navigationView = requireActivity().findViewById(R.id.navigationView);
+        navigationView.setCheckedItem(R.id.homeFragment);
         viewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         compositeDisposable = new CompositeDisposable();
         setupViewPager2();

@@ -24,6 +24,7 @@ import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.databinding.FragmentWatchListBinding;
 import com.example.coinmarketjava.model.repository.DataItem;
 import com.example.coinmarketjava.viewModel.AppViewModel;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,13 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
     public void onAttach(@NonNull Context context) {
         mainActivity = (MainActivity) context;
         super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationView navigationView = getActivity().findViewById(R.id.navigationView);
+        navigationView.setCheckedItem(R.id.watchListFragment);
     }
 
     @Override

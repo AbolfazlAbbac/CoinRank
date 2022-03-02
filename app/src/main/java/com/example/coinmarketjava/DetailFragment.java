@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -57,7 +59,7 @@ public class DetailFragment extends Fragment {
     SmoothBottomBar smoothBottomBar;
 
 
-    private void hideBottomNavigationBar() {
+    public void hideBottomNavigationBar() {
         smoothBottomBar = getActivity().findViewById(R.id.bottomNavigation);
         smoothBottomBar.setVisibility(View.GONE);
     }

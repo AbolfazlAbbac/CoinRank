@@ -19,19 +19,32 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable-v24/topmarket_bg.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_rank_toolbar_detail.xml" value="0.15" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_searchbox.xml" value="0.2703125" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_slider_adapter.xml" value="0.241" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/divder.xml" value="0.2703125" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/drawer_selected_item.xml" value="0.241" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/drop_arrows.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/dropup_arrows.xml" value="0.2703125" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.241" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.3635" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_email_99.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_telegram_fill.xml" value="0.241" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/link_botton.xml" value="0.2625" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/menu_background_color_state.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/navigation_item_background_color.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/navigation_item_color.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/se.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/shape_drawer.xml" value="0.1935" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout-v28/fragment_about.xml" value="0.3625" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/activity_about.xml" value="0.35733695652173914" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/activity_chart.xml" value="0.358695652173913" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/activity_chart_full_screen.xml" value="0.358695652173913" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/appbar_layout.xml" value="0.264" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/detail_in_deatil_fragment.xml" value="0.264" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/detail_in_detail_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_about.xml" value="0.35733695652173914" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_detail.xml" value="0.33" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_full_screen.xml" value="0.3875" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_full_screen_chart.xml" value="0.3734375" />

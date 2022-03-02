@@ -6,6 +6,7 @@
         android:title="@string/home" />
     <item
         android:id="@+id/marketFragment"
+
         android:icon="@drawable/ic_barchart"
         android:title="@string/market" />
 

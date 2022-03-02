@@ -52,11 +52,11 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/error"
                 android:gravity="center"
-                android:visibility="gone"
-
                 android:padding="16dp"
+
                 android:text="@string/there_isn_t_connection"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/nav_host_container" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:checked="true"
             app:menu="@menu/bottomnavigation_menu" />
 
 

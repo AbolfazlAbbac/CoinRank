@@ -43,4 +43,11 @@
         android:name="com.example.coinmarketjava.FullScreen"
         android:label="fragment_full_screen"
         tools:layout="@layout/fragment_full_screen" />
+    <fragment
+        android:id="@+id/about"
+        android:name="com.example.coinmarketjava.about.About"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+
+
 </navigation>
