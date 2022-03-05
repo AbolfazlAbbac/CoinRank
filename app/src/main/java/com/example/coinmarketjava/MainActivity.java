@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.coinmarketjava.about.About;
 import com.example.coinmarketjava.databinding.ActivityMainBinding;
@@ -89,34 +90,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupJsoup() {
-        Observable.interval(20, TimeUnit.SECONDS)
-                .flatMap(item -> Observable.fromRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Document pageSrc = Jsoup.connect("https://coinmarketcap.com/").get();
-                            Elements scrapingMarketData = pageSrc.getElementsByClass("cmc-link");
+        Observable.fromRunnable(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document pageSrc = Jsoup.connect("https://coinmarketcap.com/").get();
+                    Elements scrapingMarketData = pageSrc.getElementsByClass("cmc-link");
 
-                            String exChange = scrapingMarketData.get(1).text();
-                            String marketCap = scrapingMarketData.get(2).text();
-                            String value24H = scrapingMarketData.get(3).text();
-                            String[] dominance = scrapingMarketData.get(4).text().split(" ");
+                    String exChange = scrapingMarketData.get(1).text();
+                    String marketCap = scrapingMarketData.get(2).text();
+                    String value24H = scrapingMarketData.get(3).text();
+                    String[] dominance = scrapingMarketData.get(4).text().split(" ");
 
-                            String dominance_Btc = dominance[1];
-                            String dominance_Eth = dominance[3];
+                    String dominance_Btc = dominance[1];
+                    String dominance_Eth = dominance[3];
 
-                            CryptoDataMarket cryptoDataMarket = new CryptoDataMarket(marketCap, value24H, dominance_Btc, dominance_Eth);
-                            appViewModel.insertDataToDb(cryptoDataMarket);
-                            Log.e("marketCap", "run: " + marketCap);
+                    CryptoDataMarket cryptoDataMarket = new CryptoDataMarket(marketCap, value24H, dominance_Btc, dominance_Eth);
+                    appViewModel.insertDataToDb(cryptoDataMarket);
+                    Log.e("marketCap", "run: " + marketCap);
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }))
-
-
-                .subscribeOn(Schedulers.io())
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
                     @Override
@@ -189,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    private void callRequestCrypto() {
-        Observable.interval(0, 20, TimeUnit.SECONDS)
+    public void callRequestCrypto() {
+        Observable.interval(0,20, TimeUnit.MINUTES)
                 .flatMap(n -> appViewModel.marketFutureCall().get())
                 .subscribeOn(Schedulers.io())
                 .doOnComplete(new Action() {
@@ -211,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onNext(@NonNull AllCoinMarket allCoinMarket) {
                         appViewModel.insertToRoomDb(allCoinMarket);
-//                        Log.e("MainActivity", "getCrypto - onNext -> ok: ");
+                        Log.e("MainActivity", "getCrypto - onNext -> ok: ");
                         activityMainBinding.internetLoader.setVisibility(View.GONE);
 
                     }
@@ -246,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         NavigationUI.setupWithNavController(activityMainBinding.navigationView, navController);
-        Log.e("TAG", "smoothBottomBar: " + getSupportFragmentManager().findFragmentById(R.id.nav_host_container));
+
         activityMainBinding.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {

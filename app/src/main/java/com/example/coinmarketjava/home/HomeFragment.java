@@ -17,6 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.coinmarketjava.Utils;
@@ -81,6 +82,11 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
         setupViewPager2();
         getAllMarketFromDb();
         setupViewPager2TopGainLose();
+
+        fragmentHomeBinding.swipedownMain.setOnRefreshListener(() -> {
+            mainActivity.callRequestCrypto();
+            fragmentHomeBinding.swipedownMain.setRefreshing(false);
+        });
 
         return fragmentHomeBinding.getRoot();
     }

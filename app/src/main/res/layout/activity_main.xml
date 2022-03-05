@@ -19,18 +19,18 @@
             android:layout_height="match_parent"
             tools:context=".MainActivity">
 
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/nav_host_container"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:navGraph="@navigation/navgraph" />
-
 
             <me.ibrahimsn.lib.SmoothBottomBar
                 android:id="@+id/bottomNavigation"
@@ -74,6 +74,7 @@
                 android:textColor="@color/white"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/nav_host_container" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView

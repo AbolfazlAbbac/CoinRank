@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +16,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.MainActivity;
 import com.example.coinmarketjava.R;
-import com.example.coinmarketjava.Roomdb.Entities.RoomDataMarket;
+import com.example.coinmarketjava.Utils;
 import com.example.coinmarketjava.databinding.FragmentMarketBinding;
 import com.example.coinmarketjava.market.adapter.AdapterMarketFragment;
-import com.example.coinmarketjava.model.repository.AllCoinMarket;
 import com.example.coinmarketjava.model.repository.CryptoDataMarket;
 import com.example.coinmarketjava.model.repository.DataItem;
 import com.example.coinmarketjava.viewModel.AppViewModel;
@@ -38,11 +34,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -67,8 +63,7 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        navigationView = getActivity().findViewById(R.id.navigationView);
-        navigationView.setCheckedItem(R.id.marketFragment);
+
     }
 
     @Override
@@ -85,6 +80,14 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
         setupSearch();
         setupDataCrypto();
 
+        fragmentMarketBinding.swipedownMarket.setOnRefreshListener(() -> {
+            mainActivity.callRequestCrypto();
+            fragmentMarketBinding.swipedownMarket.setRefreshing(false);
+        });
+
+        navigationView = requireActivity().findViewById(R.id.navigationView);
+        navigationView.setCheckedItem(R.id.marketFragment);
+
 
         return fragmentMarketBinding.getRoot();
 
@@ -93,15 +96,12 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
     private void setupDataCrypto() {
         Disposable disposable = appViewModel.getAllDataFromDb().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<RoomDataMarket>() {
-                    @Override
-                    public void accept(RoomDataMarket roomDataMarket) throws Throwable {
-                        CryptoDataMarket cryptoDataMarket = roomDataMarket.getCryptoDataMarket();
+                .subscribe(roomDataMarket -> {
+                    CryptoDataMarket cryptoDataMarket = roomDataMarket.getCryptoDataMarket();
 
 
-                        fragmentMarketBinding.marketCapNumberTv.setText(cryptoDataMarket.getMarketCap());
-                        fragmentMarketBinding.dailyVolumeNumberTv.setText(cryptoDataMarket.getVolume24h());
-                    }
+                    fragmentMarketBinding.marketCapNumberTv.setText(cryptoDataMarket.getMarketCap());
+                    fragmentMarketBinding.dailyVolumeNumberTv.setText(cryptoDataMarket.getVolume24h());
                 });
         compositeDisposable.add(disposable);
     }
@@ -190,7 +190,6 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
         });
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -212,14 +211,11 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
 
         Utils.ToolbarCustom(navController, getString(R.string.market), R.id.marketFragment, materialToolbar);
 
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if (destination.getId() == R.id.marketFragment) {
-                    collapsingToolbarLayout.setTitleEnabled(false);
-                    materialToolbar.setTitle("Market");
-                    materialToolbar.setTitleTextColor(Color.WHITE);
-                }
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.marketFragment) {
+                collapsingToolbarLayout.setTitleEnabled(false);
+                materialToolbar.setTitle("Market");
+                materialToolbar.setTitleTextColor(Color.WHITE);
             }
         });
     }
@@ -233,13 +229,10 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
 
     @Override
     public void itemClick(View view, DataItem dataItem) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
-                Navigation.findNavController(view).navigate(R.id.action_marketFragment_to_detailFragment, bundle);
-            }
+        view.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Utils.KEY_SEND_DATA, dataItem);
+            Navigation.findNavController(view1).navigate(R.id.action_marketFragment_to_detailFragment, bundle);
         });
     }
 

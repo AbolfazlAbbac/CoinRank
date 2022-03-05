@@ -14,7 +14,9 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -53,6 +55,18 @@ public class About extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SwipeRefreshLayout swipeRefreshLayout = getActivity().findViewById(R.id.swipedown_main);
+        Fragment fragmentInFrame = getChildFragmentManager().findFragmentById(R.id.nav_host_container);
+
+        if (fragmentInFrame != null) {
+            Log.e("TagFragmentA", "onViewCreated: "+ fragmentInFrame.getId());
+        }
+
+        if (fragmentInFrame instanceof About) {
+            swipeRefreshLayout.setEnabled(false);
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
 
         Toolbar toolbar = binding.toolbarAbout;
         toolbar.setNavigationIcon(R.drawable.icon_menu);
