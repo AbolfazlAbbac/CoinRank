@@ -3,6 +3,7 @@ package com.example.coinmarketjava.market;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -82,7 +83,13 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
 
         fragmentMarketBinding.swipedownMarket.setOnRefreshListener(() -> {
             mainActivity.callRequestCrypto();
-            fragmentMarketBinding.swipedownMarket.setRefreshing(false);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    fragmentMarketBinding.swipedownMarket.setRefreshing(false);
+                }
+            }, 2000);
         });
 
         navigationView = requireActivity().findViewById(R.id.navigationView);

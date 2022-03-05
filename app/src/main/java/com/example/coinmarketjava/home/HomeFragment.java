@@ -2,6 +2,7 @@ package com.example.coinmarketjava.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +86,13 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
 
         fragmentHomeBinding.swipedownMain.setOnRefreshListener(() -> {
             mainActivity.callRequestCrypto();
-            fragmentHomeBinding.swipedownMain.setRefreshing(false);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    fragmentHomeBinding.swipedownMain.setRefreshing(false);
+                }
+            }, 2000);
         });
 
         return fragmentHomeBinding.getRoot();

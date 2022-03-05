@@ -2,6 +2,7 @@ package com.example.coinmarketjava.watchlist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,6 @@ import com.example.coinmarketjava.model.repository.DataItem;
 import com.example.coinmarketjava.viewModel.AppViewModel;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -43,7 +43,7 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
     AppViewModel appViewModel;
     CompositeDisposable compositeDisposable;
     WatchListAdapter watchListAdapter;
-    List<DataItem> items;
+    int items = 0;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -54,7 +54,7 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NavigationView navigationView = getActivity().findViewById(R.id.navigationView);
+        NavigationView navigationView = requireActivity().findViewById(R.id.navigationView);
         navigationView.setCheckedItem(R.id.watchListFragment);
     }
 
@@ -65,6 +65,7 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_watch_list, container, false);
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         compositeDisposable = new CompositeDisposable();
+        favoriteItems();
         return binding.getRoot();
     }
 
@@ -73,6 +74,34 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
 
         setupToolbar(view);
 
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (items == 0) {
+                    binding.swipedownWatchList.setEnabled(false);
+                    binding.swipedownWatchList.setRefreshing(false);
+                    Log.e("ItemsSize", "onViewCreated: " + items);
+                } else {
+                    binding.swipedownWatchList.setOnRefreshListener(() -> {
+                        Log.e("ItemsSize1", "onViewCreated: " + items);
+                        binding.swipedownWatchList.setEnabled(true);
+                        mainActivity.callRequestCrypto();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.swipedownWatchList.setRefreshing(false);
+                            }
+                        }, 2000);
+                    });
+                }
+            }
+        },200);
+
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void favoriteItems() {
         appViewModel.getAllDataItemFav()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -84,7 +113,7 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
 
                     @Override
                     public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<DataItem> dataItems) {
-
+                        items = dataItems.size();
 
                         appViewModel.getAllDataItemFav().subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
@@ -101,7 +130,6 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
                                     }
                                 });
 
-                        items = dataItems;
 
                         if (dataItems.size() > 0) {
                             binding.conEmptyStateWatchList.setVisibility(View.GONE);
@@ -118,11 +146,11 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
                             watchListAdapter.update(dataItems);
                         }
 
-
                         Log.e("ItemFav", "onSuccess: " + dataItems.size());
                         for (DataItem dataItemList : dataItems) {
-                            Log.e("ItemFav", "onSuccess: " + dataItemList.getSymbol());
+                            Log.e("ItemsSize", "Source: " + items);
                         }
+
                     }
 
                     @Override
@@ -131,7 +159,6 @@ public class WatchListFragment extends Fragment implements WatchListAdapter.onCl
                     }
                 });
 
-        super.onViewCreated(view, savedInstanceState);
     }
 
     private void setupToolbar(View view) {

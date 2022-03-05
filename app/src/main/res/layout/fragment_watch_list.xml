@@ -14,14 +14,21 @@
         android:background="@color/black"
         tools:context=".watchlist.WatchListFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvWatchListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipedownWatchList"
+            android:layout_width="wrap_content"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:layout_constraintTop_toBottomOf="@+id/include2" />
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvWatchListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/conEmptyStateWatchList"
@@ -58,6 +65,7 @@
                 app:layout_constraintStart_toStartOf="@+id/animationEmptyStateWatchList"
                 app:layout_constraintTop_toBottomOf="@+id/animationEmptyStateWatchList" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <include
             android:id="@+id/include2"
