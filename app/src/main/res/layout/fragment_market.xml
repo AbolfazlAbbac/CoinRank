@@ -21,6 +21,7 @@
                 android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/teal_900"
                 android:theme="@style/Theme.MaterialComponents"
                 app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
 
@@ -36,7 +37,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        >
 
                         <TextView
                             android:id="@+id/marketCapTv"
@@ -105,6 +107,7 @@
                     android:id="@+id/toolbarMarketFragment"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
+                    android:background="@color/teal_900"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_baseline_sort_24" />
 

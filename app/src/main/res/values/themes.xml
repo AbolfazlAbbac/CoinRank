@@ -11,8 +11,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="tabStyle">@style/AppTheme.TabLayout</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/teal_900</item>
         <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/teal_900</item>
 
     </style>
 
