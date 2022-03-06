@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.coinmarketjava.home.HomeFragment"
+        android:name="com.coin.rank.home.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/marketFragment"
-        android:name="com.example.coinmarketjava.market.MarketFragment"
+        android:name="com.coin.rank.market.MarketFragment"
         tools:layout="@layout/fragment_market" >
         <action
             android:id="@+id/action_marketFragment_to_detailFragment"
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/watchListFragment"
-        android:name="com.example.coinmarketjava.watchlist.WatchListFragment"
+        android:name="com.coin.rank.watchlist.WatchListFragment"
         tools:layout="@layout/fragment_watch_list" >
         <action
             android:id="@+id/action_watchListFragment_to_detailFragment"
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.coinmarketjava.DetailFragment"
+        android:name="com.coin.rank.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <action
@@ -40,12 +40,12 @@
     </fragment>
     <fragment
         android:id="@+id/fullScreen"
-        android:name="com.example.coinmarketjava.FullScreen"
+        android:name="com.coin.rank.FullScreen"
         android:label="fragment_full_screen"
         tools:layout="@layout/fragment_full_screen" />
     <fragment
         android:id="@+id/about"
-        android:name="com.example.coinmarketjava.about.About"
+        android:name="com.coin.rank.about.About"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
 
