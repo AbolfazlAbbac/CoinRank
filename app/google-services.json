@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "728062947335",
+    "project_id": "coinrank-a26ca",
+    "storage_bucket": "coinrank-a26ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728062947335:android:f8b20291599461086f3aa2",
+        "android_client_info": {
+          "package_name": "com.coin.rank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728062947335-at0bs9jm6eqctkrubif24qh9a78qg5at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz7O_ekJWUphZpb0gshD67KPJkuCoGeaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728062947335-at0bs9jm6eqctkrubif24qh9a78qg5at.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

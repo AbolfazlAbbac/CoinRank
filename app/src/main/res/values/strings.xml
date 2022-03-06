@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CoinMarketJava</string>
+    <string name="app_name">CoinRank</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="home">Home</string>
     <string name="market">Market</string>
@@ -12,7 +12,7 @@
     <string name="search">Search</string>
     <string name="market_cap">Market Cap</string>
     <string name="_24_hours_volume">24 Hours Volume</string>
-    <string name="item_not_found">Item Not Found...</string>
+    <string name="item_not_found">Item Not Found…</string>
     <string name="exit">Exit</string>
     <string name="add_favorite">Add Favorite</string>
     <string name="price">Price</string>
