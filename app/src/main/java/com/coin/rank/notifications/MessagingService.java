@@ -2,7 +2,6 @@ package com.coin.rank.notifications;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.graphics.BitmapFactory;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
