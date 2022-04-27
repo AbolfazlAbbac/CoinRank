@@ -10,16 +10,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00000000">
+        android:background="#000000">
 
 
         <TextView
             android:id="@+id/counterMarketFragmentTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/iconCryptoMarketFragment"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginStart="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/counterMarketFragmentTv"
@@ -38,10 +38,12 @@
             android:id="@+id/nameMarketFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="8dp"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/codeMarketFragment"
             app:layout_constraintStart_toEndOf="@+id/iconCryptoMarketFragment"
-            app:layout_constraintTop_toTopOf="@+id/iconCryptoMarketFragment"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="BitCoin" />
 
         <TextView
@@ -49,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/nameMarketFragment"
             app:layout_constraintTop_toBottomOf="@+id/nameMarketFragment"
             tools:text="Btc" />

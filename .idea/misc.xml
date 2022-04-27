@@ -34,7 +34,9 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.3635" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_email_99.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_icon.xml" value="0.2435" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_telegram_fill.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/icon_coinrank_background.xml" value="0.196" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/link_botton.xml" value="0.2625" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/menu_background_color_state.xml" value="0.241" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/navigation_item_background_color.xml" value="0.241" />
@@ -62,9 +64,10 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_market.xml" value="0.176" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_top_gainer_loser.xml" value="0.176" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_watch_list.xml" value="0.25" />
-        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/item_marketfragment.xml" value="0.264" />
-        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/item_topgainlose.xml" value="0.536" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/item_marketfragment.xml" value="0.5" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/item_topgainlose.xml" value="0.33" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/item_watch_list.xml" value="0.264" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/slider_banner.xml" value="0.18802083333333333" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/toolbar_detail.xml" value="0.264" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/top10adapter.xml" value="0.264" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/menu/bottomnavigation_menu.xml" value="0.25416666666666665" />
@@ -72,6 +75,9 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/menu/menu_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/menu/menu_toolbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2985" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2435" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/mipmap-anydpi-v26/icon_coinrank.xml" value="0.2435" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/mipmap-anydpi-v26/icon_coinrank_round.xml" value="0.2435" />
         <entry key="app/src/main/res/layout/fragment_watch_list.xml" value="0.3703125" />
       </map>
     </option>

@@ -8,6 +8,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
+    signingConfigs {
+        Release {
+            storeFile file('D:\\App\\CoinRank\\key.jks')
+            storePassword KEYSTORE_PASSWORD
+            keyAlias 'key0'
+            keyPassword KEY_PASSWORD
+        }
+    }
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
@@ -28,6 +36,11 @@ android {
     buildFeatures {
         dataBinding  true
         viewBinding true
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.Release
+        }
     }
 
 }

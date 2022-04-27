@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/logoIconIv"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/percentChangeTv"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,6 @@
                 android:id="@+id/currentPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 tools:text="650440"
                 app:layout_constraintEnd_toEndOf="@+id/nameCoinTv"
                 app:layout_constraintStart_toStartOf="@+id/nameCoinTv"
@@ -62,11 +61,11 @@
                 android:id="@+id/percentChangeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                tools:text="-15.6"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/currentPriceTv"
                 app:layout_constraintStart_toStartOf="@+id/currentPriceTv"
-                app:layout_constraintTop_toBottomOf="@+id/currentPriceTv" />
+                app:layout_constraintTop_toBottomOf="@+id/currentPriceTv"
+                tools:text="-15.6" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

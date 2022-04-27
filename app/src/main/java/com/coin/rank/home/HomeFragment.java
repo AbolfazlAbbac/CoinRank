@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
 
     AppViewModel viewModel;
 
-    public List<String> top10ListName = Arrays.asList("BTC", "ADA", "ETH", "BNB", "DOGE", "COSMOS", "CAKE", "WIN", "BLOK");
+    public List<String> top10ListName = Arrays.asList("BTC", "ETH", "BNB", "SOL", "XRP", "LUNA", "ADA", "AVAX", "DOGE");
 
     Top10Adapter top10Adapter;
 

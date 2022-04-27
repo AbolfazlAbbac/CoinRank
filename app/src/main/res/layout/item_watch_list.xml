@@ -39,8 +39,8 @@
 
             <ImageView
                 android:id="@+id/logoIconIv"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/percentChangeTv"
                 app:layout_constraintStart_toEndOf="@+id/rankWatchList"
