@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -112,6 +114,7 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
         compositeDisposable.add(disposable);
     }
 
+
     private void setupSearch() {
         fragmentMarketBinding.searchBoxMarketFragment.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,8 +144,8 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
             }
         }
 
-
         adapterMarketFragment.update(filtered);
+
         adapterMarketFragment.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -172,8 +175,10 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
     }
 
     private void setupAllCrypto() {
+        mainActivity.callRequestCrypto();
         appViewModel.dataItemList.observe(requireActivity(), dataItems1 -> {
             dataItems = dataItems1;
+
 
             if (fragmentMarketBinding.marketFragmentRv.getAdapter() == null) {
                 adapterMarketFragment = new AdapterMarketFragment((ArrayList<DataItem>) dataItems1, MarketFragment.this);
@@ -181,7 +186,7 @@ public class MarketFragment extends Fragment implements AdapterMarketFragment.On
             } else {
                 adapterMarketFragment = (AdapterMarketFragment) fragmentMarketBinding.marketFragmentRv.getAdapter();
                 if (searchBoxText.isEmpty()) {
-                    adapterMarketFragment.update((ArrayList<DataItem>) dataItems1);
+                    adapterMarketFragment.update((ArrayList<DataItem>) dataItems);
                 } else {
                     for (int i = 0; i < dataItems1.size(); i++) {
                         for (int j = 0; j < filtered.size(); j++) {

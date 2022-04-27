@@ -18,6 +18,7 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable-v24/fulldivder.xml" value="0.175" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable-v24/topmarket_bg.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/back_toolbar.xml" value="0.11" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_circle.xml" value="0.2435" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_rank_toolbar_detail.xml" value="0.15" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_searchbox.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/background_slider_adapter.xml" value="0.241" />
@@ -26,6 +27,8 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/drop_arrows.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/dropup_arrows.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.241" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.2515" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_content_copy_24.xml" value="0.2435" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2985" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2703125" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.2703125" />
@@ -39,6 +42,7 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/se.xml" value="0.241" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/shape_back_loading_main.xml" value="0.1935" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/drawable/shape_drawer.xml" value="0.1935" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout-v26/fragment_donate.xml" value="0.36666666666666664" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout-v28/fragment_about.xml" value="0.3625" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/activity_about.xml" value="0.35733695652173914" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/activity_chart.xml" value="0.358695652173913" />
@@ -49,6 +53,7 @@
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/detail_in_detail_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_about.xml" value="0.2755102040816326" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_detail.xml" value="0.33" />
+        <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_donate.xml" value="0.33" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_full_screen.xml" value="0.3875" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_full_screen_chart.xml" value="0.3734375" />
         <entry key="..\:/Project/marketstatus/app/src/main/res/layout/fragment_fullscreen.xml" value="0.3734375" />

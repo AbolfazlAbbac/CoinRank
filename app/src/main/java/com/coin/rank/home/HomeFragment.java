@@ -3,7 +3,6 @@ package com.coin.rank.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,8 +122,6 @@ public class HomeFragment extends Fragment implements Top10Adapter.OnClickEvent 
 
     private void getAllMarketFromDb() {
         viewModel.dataItemList.observe(requireActivity(), dataItems -> {
-
-            Log.e("TAG", "I'm Abolfazl: " + dataItems.get(0).getSymbol());
 
 
             ArrayList<DataItem> top10List = new ArrayList<>();

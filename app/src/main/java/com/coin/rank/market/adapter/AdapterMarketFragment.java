@@ -1,5 +1,6 @@
 package com.coin.rank.market.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,14 @@ import com.example.rank.databinding.ItemMarketfragmentBinding;
 import com.coin.rank.model.repository.DataItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFragment.ViewHolder> {
 
     LayoutInflater inflater;
 
     ArrayList<DataItem> dataItems;
+
 
     public OnClickListenerEvent onClickListenerEvent;
 
@@ -97,10 +100,10 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
 
         private void setupColorPriceAndPercent(@NonNull DataItem dataItem) {
             if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
-                binding.priceMarketFragment.setTextColor(Color.GREEN);
+                binding.priceMarketFragment.setTextColor(Color.WHITE);
                 binding.percentChangeMarketFragment.setTextColor(Color.GREEN);
             } else if (dataItem.getQuotes().get(0).getPercentChange24h() < 0) {
-                binding.priceMarketFragment.setTextColor(Color.RED);
+                binding.priceMarketFragment.setTextColor(Color.WHITE);
                 binding.percentChangeMarketFragment.setTextColor(Color.RED);
             }
         }
@@ -120,6 +123,7 @@ public class AdapterMarketFragment extends RecyclerView.Adapter<AdapterMarketFra
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void update(ArrayList<DataItem> newData) {
         dataItems.clear();
         dataItems.addAll(newData);

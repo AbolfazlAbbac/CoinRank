@@ -106,10 +106,10 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
 
         private void setupColorPriceAndPercent(@NonNull DataItem dataItem) {
             if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
-                binding.currentPriceTv.setTextColor(Color.GREEN);
+                binding.currentPriceTv.setTextColor(Color.WHITE);
                 binding.percentChangeTv.setTextColor(Color.GREEN);
             } else if (dataItem.getQuotes().get(0).getPercentChange24h() < 0) {
-                binding.currentPriceTv.setTextColor(Color.RED);
+                binding.currentPriceTv.setTextColor(Color.WHITE);
                 binding.percentChangeTv.setTextColor(Color.RED);
             }
         }

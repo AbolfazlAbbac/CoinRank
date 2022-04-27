@@ -50,6 +50,9 @@
     <string name="contacts">راه های ارتباطی با برنامه نویس</string>
     <string name="email">Email: AbolfazlAbbasi185@gmail.com</string>
     <string name="telegram_id">Telegram ID: T.me/AbolfazlAbbac</string>
+    <string name="donate_rial">Donate With Gate</string>
+    <string name="donate">Donate</string>
+    <string name="text_donate">در بسیاری از کشورهای دنیا مخصوصا کشورهای پیشرفته که اینترنت به صورت جز جدایی ناپذیری از زندگی آن ها شده، فرهنگ های خاص و خوبی وجود دارد که متاسفانه در ایران ما به آن صورت دیده نمی‌شود.\n یکی از این فرهنگ های خوب، فرهنگ حمایت کردن کسب و کارها و خدماتی است که به صورت رایگان در دسترس قرار می‌گیرند که اصطلاحا به آن دونیت گفته می شود.\n پس ما هم به نوبه‌ی خودمان دوست داریم این فرهنگ را در کشورمان نهادینه کنیم و شما با کمک به ما حتی اندک، می توانید در این راه به ما کمک کنید.\n در این برنامه هیچ هزینه ای بابت خدمات گرفته نمی شود، پس شما ما را از طریق دکمه زیر حمایت کنید.\n</string>
 
 
     <string name="Open_drawer">Open Drawer</string>

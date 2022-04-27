@@ -48,6 +48,11 @@
         android:name="com.coin.rank.about.About"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/donate"
+        android:name="com.coin.rank.donate.DonateFragment"
+        tools:layout="@layout/fragment_donate"
+        android:label="DonateFragment" />
 
 
 </navigation>

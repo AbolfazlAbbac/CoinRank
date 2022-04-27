@@ -78,6 +78,7 @@ public class AppViewModel extends AndroidViewModel {
                             for (int i = 0; i < roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().size(); i++) {
                                 integers.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i).getId());
                                 dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
+                                dataItemList.postValue(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList());
                                 items.add(roomAllMarket.getAllCoinMarket().getRootData().getCryptoCurrencyList().get(i));
                             }
 

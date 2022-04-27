@@ -91,10 +91,10 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.Top10ViewHol
 
             if (dataItem.getQuotes().get(0).getPercentChange24h() < 0) {
                 binding.percentChangeTv.setTextColor(Color.RED);
-                binding.currentPriceTv.setTextColor(Color.RED);
+                binding.currentPriceTv.setTextColor(Color.WHITE);
             } else {
                 binding.percentChangeTv.setTextColor(Color.GREEN);
-                binding.currentPriceTv.setTextColor(Color.GREEN);
+                binding.currentPriceTv.setTextColor(Color.WHITE);
             }
         }
     }

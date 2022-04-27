@@ -54,7 +54,6 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
         private final ItemTopgainloseBinding binding;
 
 
-
         public ViewHolder(@NonNull ItemTopgainloseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -96,10 +95,10 @@ public class TopGainLoseAdapterRv extends RecyclerView.Adapter<TopGainLoseAdapte
 
         private void setupColorPriceAndPercent(@NonNull DataItem dataItem) {
             if (dataItem.getQuotes().get(0).getPercentChange24h() > 0) {
-                binding.priceItemTopGain.setTextColor(Color.GREEN);
+                binding.priceItemTopGain.setTextColor(Color.WHITE);
                 binding.percentChangeItemTopGain.setTextColor(Color.GREEN);
             } else if (dataItem.getQuotes().get(0).getPercentChange24h() < 0) {
-                binding.priceItemTopGain.setTextColor(Color.RED);
+                binding.priceItemTopGain.setTextColor(Color.WHITE);
                 binding.percentChangeItemTopGain.setTextColor(Color.RED);
             }
         }

@@ -28,12 +28,18 @@
         </item>
     </group>
 
-    <group android:id="@+id/group2"
+    <group
+        android:id="@+id/group2"
         android:checkableBehavior="single">
         <item
             android:id="@+id/secondHeader"
             android:title="@string/more">
             <menu>
+                <item
+                    android:id="@+id/donate"
+                    android:checkable="true"
+                    android:icon="@drawable/ic_baseline_attach_money_24"
+                    android:title="@string/donate" />
                 <item
                     android:id="@+id/about"
                     android:checkable="true"
